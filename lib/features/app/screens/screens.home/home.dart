@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: HorizontalImageCard(
+                    child: const HorizontalImageCard(
                       text: "House Warming Kitty",
                       isNetworkImage: true,
                       image:
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: HorizontalImageCard(
+                    child: const HorizontalImageCard(
                       text: "House Warming Kitty",
                       isNetworkImage: true,
                       image:

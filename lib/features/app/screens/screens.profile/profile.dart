@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:grupchat/features/app/screens/widgets/profile/profile_header.dart';
 import 'package:grupchat/features/app/screens/widgets/profile/settings_tile.dart';
-import 'package:grupchat/features/auth/screens/screens.onboarding/auth_screen.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:grupchat/main.dart';
 

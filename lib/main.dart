@@ -57,12 +57,14 @@ class _MyAppState extends State<MyApp> {
           } else if (snapshot.hasData) {
             switch (snapshot.data!.event) {
               case AuthChangeEvent.signedIn:
-                return HomeView();
+                return const HomeView();
+              case AuthChangeEvent.tokenRefreshed:
+                return const HomeView();
               case AuthChangeEvent.signedOut:
                 return const LoginAndRegisterView();
               case AuthChangeEvent.initialSession:
                 if (snapshot.data!.session != null) {
-                  return HomeView();
+                  return const HomeView();
                 } else {
                   return const LoginAndRegisterView();
                 }

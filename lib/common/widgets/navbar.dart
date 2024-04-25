@@ -19,8 +19,8 @@ class _HomeViewState extends State<HomeView> {
   final List<Widget> _screens = [
     HomeScreen(),
     PoolsScreen(),
-    TransactionsScreen(),
-    ProfileScreen(),
+    const TransactionsScreen(),
+    const ProfileScreen(),
   ];
 
   void _onDestinationSelected(int index) {

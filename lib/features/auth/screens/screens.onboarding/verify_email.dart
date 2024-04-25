@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -108,16 +106,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
             AuthActionButton(
               onTap: () {
                 try {
-                  final res =
-                      ModalRoute.of(context)!.settings.arguments as User;
-                  print(res);
                   // check if user is verified
                   final user = supabase.auth.currentSession?.user;
                   if (user != null && user.emailConfirmedAt != null) {
-                    print(user);
-                    // Navigator.pushNamed(context, SuccessScreen.routeName);
+                    Navigator.pushNamed(context, SuccessScreen.routeName);
                   } else {
-                    print(user);
                     showSnackBar(context, "Email not verified yet");
                   }
                 } catch (e) {

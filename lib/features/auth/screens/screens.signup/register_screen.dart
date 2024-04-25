@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grupchat/common/widgets/navbar.dart';
 import 'package:grupchat/data/services/auth_service.dart';
-import 'package:grupchat/features/auth/screens/screens.onboarding/success_screen.dart';
 import 'package:grupchat/features/auth/screens/screens.onboarding/verify_email.dart';
 import 'package:grupchat/features/auth/screens/widgets/terms_and_conditions_check.dart';
 import 'package:grupchat/main.dart';
@@ -15,7 +12,7 @@ import '../../../../common/widgets/show_snackbar.dart';
 
 class RegisterScreen extends StatefulWidget {
   final Function()? toggleScreen;
-  RegisterScreen({super.key, this.toggleScreen});
+  const RegisterScreen({super.key, this.toggleScreen});
 
   @override
   State<RegisterScreen> createState() => _LoginScreenState();
