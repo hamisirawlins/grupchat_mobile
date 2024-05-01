@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 
 class ProfileHeader extends StatelessWidget {
@@ -16,8 +17,8 @@ class ProfileHeader extends StatelessWidget {
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
           colors: [
-            Colors.blue[300]!,
-            Colors.blue[700]!,
+            kPrimaryColor,
+            kSecondaryColor,
           ],
         ),
         borderRadius: const BorderRadius.only(

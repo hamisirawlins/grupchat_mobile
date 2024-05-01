@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 
 class TermsAndConditionsCheck extends StatefulWidget {
@@ -25,6 +26,8 @@ class _TermsAndConditionsCheckState extends State<TermsAndConditionsCheck> {
             width: 24,
             height: 24,
             child: Checkbox(
+                checkColor: kSecondaryColor,
+                activeColor: kPrimaryColor,
                 value: isChecked,
                 onChanged: (value) {
                   setState(() {
@@ -34,9 +37,9 @@ class _TermsAndConditionsCheckState extends State<TermsAndConditionsCheck> {
                 }),
           ),
           const Text.rich(
-            TextSpan(text: "I agree to the ", children: [
+            TextSpan(text: "Agree to the ", children: [
               TextSpan(
-                text: "Terms of Service",
+                text: "Service Terms",
                 style: TextStyle(
                     color: Colors.blue,
                     decoration: TextDecoration.underline,

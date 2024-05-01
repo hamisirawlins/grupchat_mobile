@@ -99,10 +99,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Image.asset(
                 'assets/images/padlock.png',
-                width: SizeConfig.screenWidth * 0.32,
+                width: SizeConfig.screenWidth * 0.28,
               ),
               SizedBox(
-                height: SizeConfig.screenHeight * 0.04,
+                height: SizeConfig.screenHeight * 0.02,
               ),
               Text(
                 "Grup Chat",
@@ -195,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: GestureDetector(
                   onTap: googleSignIn,
                   child: Container(
-                    padding: EdgeInsets.all(SizeConfig.screenWidth * 0.036),
+                    padding: EdgeInsets.all(SizeConfig.screenWidth * 0.024),
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.black26, width: 2),
                         borderRadius: BorderRadius.circular(50)),

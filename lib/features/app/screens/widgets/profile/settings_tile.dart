@@ -23,7 +23,7 @@ class ProfileSettingsTile extends StatelessWidget {
       padding: EdgeInsets.all(SizeConfig.screenHeight * 0.01),
       child: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: kSecondaryColor),
+            borderRadius: BorderRadius.circular(20), color: kPrimaryColor),
         child: ListTile(
           textColor: Colors.white,
           leading: Icon(

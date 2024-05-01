@@ -10,9 +10,9 @@ class PoolsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Row(
@@ -33,21 +33,20 @@ class PoolsScreen extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: kPrimaryColor,
-          onPressed: () {},
-          icon: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          label: const Text(
-            'Create Pool',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniStartFloat,
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: kPrimaryColor,
+        onPressed: () {},
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'Create Pool',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
     );
   }
 }

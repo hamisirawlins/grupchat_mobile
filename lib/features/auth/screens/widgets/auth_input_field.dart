@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 
 class AuthInput extends StatelessWidget {
   final controller;
@@ -18,8 +19,14 @@ class AuthInput extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
+        cursorColor: kSecondaryColor,
         decoration: InputDecoration(
           labelText: hintText,
+          labelStyle: TextStyle(color: kSecondaryColor),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kSecondaryColor),
+            borderRadius: BorderRadius.circular(20),
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
           ),

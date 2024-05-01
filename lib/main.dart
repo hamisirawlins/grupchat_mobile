@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:grupchat/common/widgets/navbar.dart';
 import 'package:grupchat/features/auth/screens/screens.onboarding/auth_screen.dart';
 import 'package:grupchat/routes/routes.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'utils/constants/sys_util.dart';
@@ -45,9 +46,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       routes: appRoutes,
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-          useMaterial3: true,
-          fontFamily: GoogleFonts.nunitoSans().fontFamily),
+        primaryColor: kPrimaryColor,
+        textTheme: GoogleFonts.poppinsTextTheme(),
+      ),
       home: StreamBuilder(
         stream: supabase.auth.onAuthStateChange,
         builder: (context, snapshot) {

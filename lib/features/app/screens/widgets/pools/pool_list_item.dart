@@ -7,19 +7,22 @@ class PoolsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return const Card(
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(5.0),
             child: ListTile(
-              leading: Image.asset('assets/icons/banknote-envelope.png'),
-              title: const Text('Pool Name'),
-              subtitle: const Text('Ksh. 200.00'),
-              trailing: const Icon(Icons.more_vert),
+              title: Text(
+                'Pool Name',
+              ),
+              subtitle: Text(
+                'Ksh. 200.00',
+              ),
+              trailing: Icon(Icons.more_vert),
             ),
           ),
-          const LinearProgressIndicator(
+          LinearProgressIndicator(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10),

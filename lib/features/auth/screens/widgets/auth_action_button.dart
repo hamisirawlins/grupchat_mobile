@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 
 class AuthActionButton extends StatelessWidget {
   final String text;
@@ -15,7 +16,7 @@ class AuthActionButton extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-            color: Colors.blueGrey, borderRadius: BorderRadius.circular(20)),
+            color: kPrimaryColor, borderRadius: BorderRadius.circular(20)),
         child: Center(
           child: Text(
             text,
