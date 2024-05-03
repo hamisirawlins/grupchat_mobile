@@ -1,36 +1,57 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class HttpUtility {
-  static const String baseUrl = 'https://jsonplaceholder.typicode.com';
+  static String baseUrl = dotenv.env['GATEWAY_URL'] ?? '';
 
-  //HTTP GET request
-  static Future<Map<String, dynamic>> get(String url) async {
-    final response = await http.get(Uri.parse('$baseUrl/$url'));
+  // HTTP GET request
+  static Future<Map<String, dynamic>> get(String url, String token) async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/$url'),
+      headers: {'Authorization': token},
+    );
     return _handleResponse(response);
   }
 
-  //HTTP POST request
-  static Future<Map<String, dynamic>> post(String url, dynamic body) async {
-    final response = await http.post(Uri.parse('$baseUrl/$url'),
-        body: json.encode(body), headers: {'Content-Type': 'application/json'});
+  // HTTP POST request
+  static Future<Map<String, dynamic>> post(
+      String url, dynamic body, String token) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/$url'),
+      body: json.encode(body),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     return _handleResponse(response);
   }
 
-  //HTTP PUT request
-  static Future<Map<String, dynamic>> put(String url, dynamic body) async {
-    final response = await http.put(Uri.parse('$baseUrl/$url'),
-        body: json.encode(body), headers: {'Content-Type': 'application/json'});
+  // HTTP PUT request
+  static Future<Map<String, dynamic>> put(
+      String url, dynamic body, String token) async {
+    final response = await http.put(
+      Uri.parse('$baseUrl/$url'),
+      body: json.encode(body),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     return _handleResponse(response);
   }
 
-  //HTTP DELETE request
-  static Future<Map<String, dynamic>> delete(String url) async {
-    final response = await http.delete(Uri.parse('$baseUrl/$url'));
+  // HTTP DELETE request
+  static Future<Map<String, dynamic>> delete(String url, String token) async {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/$url'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
     return _handleResponse(response);
   }
 
-  //_handleResponse
+  // _handleResponse
   static Map<String, dynamic> _handleResponse(http.Response response) {
     if (response.statusCode == 200) {
       return json.decode(response.body);

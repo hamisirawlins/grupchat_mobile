@@ -1,1 +1,0 @@
-enum PaymentMethods { mPesa, card }

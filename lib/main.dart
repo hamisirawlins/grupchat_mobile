@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grupchat/common/widgets/navbar.dart';
-import 'package:grupchat/features/auth/screens/screens.onboarding/auth_screen.dart';
+import 'package:grupchat/widgets/navbar.dart';
+import 'package:grupchat/modules/auth/screens/screens.onboarding/auth_screen.dart';
 import 'package:grupchat/routes/routes.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       routes: appRoutes,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.blue[50],
         primaryColor: kPrimaryColor,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
