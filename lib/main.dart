@@ -46,7 +46,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       routes: appRoutes,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.blue[50],
         primaryColor: kPrimaryColor,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),

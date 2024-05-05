@@ -1,11 +1,6 @@
 import 'package:intl/intl.dart';
 
 class UtilFormatter {
-  static String formatDate(DateTime? date) {
-    date ??= DateTime.now();
-    return "${date.day}/${date.month}/${date.year}";
-  }
-
   static String formatPhoneNumber(String number) {
     if (number.startsWith("254") && number.length == 12) {
       return number;
@@ -22,5 +17,9 @@ class UtilFormatter {
   static String formatAmount(var amount) {
     final NumberFormat kesCurrency = NumberFormat('#,##0.00', 'en_US');
     return kesCurrency.format(amount);
+  }
+
+  static String formatDate(String date) {
+    return DateFormat('dd MMM yy').format(DateTime.parse(date));
   }
 }

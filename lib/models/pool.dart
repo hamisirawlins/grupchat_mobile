@@ -9,7 +9,10 @@ class Pool {
   final String endDate;
   final String createdAt;
   final bool archived;
-  final String? deletedAt; // Make this field nullable
+  final String? deletedAt;
+  final int totalDeposits;
+  final int totalWithdrawals;
+  final int numberOfMembers;
 
   Pool({
     required this.poolId,
@@ -22,7 +25,10 @@ class Pool {
     required this.endDate,
     required this.createdAt,
     required this.archived,
-    this.deletedAt, 
+    required this.totalDeposits,
+    required this.totalWithdrawals,
+    required this.numberOfMembers,
+    this.deletedAt,
   });
 
   factory Pool.fromJson(Map<String, dynamic> json) {
@@ -37,7 +43,24 @@ class Pool {
       endDate: json['end_date'] ?? '',
       createdAt: json['created_at'] ?? '',
       archived: json['archived'] ?? false,
-      deletedAt: json['deleted_at'], 
+      totalDeposits: json['insights']['totalDeposits'] ?? 0,
+      totalWithdrawals: json['insights']['totalWithdrawals'] ?? 0,
+      numberOfMembers: json['numberOfMembers'] ?? 0,
+      deletedAt: json['deleted_at'],
     );
+  }
+}
+
+class WithdrawRequest {
+  final int amount;
+  final int phone;
+
+  WithdrawRequest({required this.amount, required this.phone});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'amount': amount,
+      'phone': phone,
+    };
   }
 }

@@ -37,7 +37,7 @@ class _HomeViewState extends State<HomeView> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         currentIndex: _selectedIndex,
-        selectedItemColor: kSecondaryColor,
+        selectedItemColor: kPrimaryColor,
         unselectedItemColor: Colors.grey,
         onTap: _onDestinationSelected,
         items: const [

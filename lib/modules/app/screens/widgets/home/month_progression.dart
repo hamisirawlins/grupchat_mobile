@@ -18,7 +18,8 @@ class MonthlyProgressIndicator extends StatelessWidget {
     double percent = now.day / totalDaysInMonth;
 
     // Format the percentage to display with two decimal places
-    String formattedPercent = NumberFormat("##0.0#", "en_US").format(percent);
+    String formattedPercent =
+        NumberFormat("##0.0#", "en_US").format(percent * 100);
 
     return CircularPercentIndicator(
       radius: SizeConfig.screenWidth * 0.14,
@@ -32,8 +33,8 @@ class MonthlyProgressIndicator extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      progressColor: Colors.green[300],
-      backgroundColor: Colors.white,
+      progressColor: Colors.green,
+      backgroundColor: Colors.grey[300]!,
     );
   }
 }

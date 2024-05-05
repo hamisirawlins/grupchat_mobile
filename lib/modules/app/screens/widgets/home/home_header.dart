@@ -23,7 +23,7 @@ class HomeHeader extends StatelessWidget {
           end: Alignment.topRight,
           colors: [
             kPrimaryColor,
-            kSecondaryColor,
+            Colors.blue.shade900,
           ],
         ),
         borderRadius: const BorderRadius.only(

@@ -1,287 +1,177 @@
 import 'package:flutter/material.dart';
-import 'package:grupchat/modules/app/screens/widgets/common/section_header_title.dart';
+import 'package:grupchat/models/pool.dart';
+import 'package:grupchat/modules/app/screens/widgets/pools/bordered_button.dart';
+import 'package:grupchat/modules/app/screens/widgets/pools/non_bordered_button.dart';
+import 'package:grupchat/modules/app/screens/screens.transactions/deposit.dart';
+import 'package:grupchat/modules/app/screens/screens.transactions/withdraw.dart';
+import 'package:grupchat/services/data_service.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:grupchat/utils/formatters/formatter.dart';
+import 'package:grupchat/widgets/navbar.dart';
+import 'package:grupchat/widgets/show_snackbar.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class PoolDetails extends StatefulWidget {
-  final String name;
-  final String image;
-  final bool isNetworkImage;
-  const PoolDetails(
-      {super.key,
-      required this.image,
-      required this.isNetworkImage,
-      required this.name});
+  static const String routeName = '/pool-details';
+  final String poolId;
+
+  const PoolDetails({super.key, required this.poolId});
 
   @override
   State<PoolDetails> createState() => _PoolDetailsState();
 }
 
 class _PoolDetailsState extends State<PoolDetails> {
-  List<List<String>> listData = [
-    ["User 1: ", "Ksh 3000"],
-    ["User 2: ", "Ksh 2800"],
-    ["User 3: ", "Ksh 2600"],
-  ];
+  final DataService _dataService = DataService();
+
+  Pool? _pool;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPoolDetails();
+  }
+
+  Future<void> _loadPoolDetails() async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+
+      final pool = await _dataService.getPool(widget.poolId);
+      setState(() {
+        _pool = pool;
+        _isLoading = false;
+      });
+    } catch (e) {
+      if (mounted) showSnackBar(context, e.toString());
+    }
+  }
+
+  String _getPoolProgressComment(int progress) {
+    if (progress <= 1) {
+      return 'We are just getting started';
+    } else if (progress < 2) {
+      return 'We are making progress';
+    } else if (progress < 4) {
+      return 'We are almost there';
+    } else {
+      return 'Congratulations! We made it!';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    int progress = _pool != null
+        ? (_pool!.totalDeposits / _pool!.targetAmount * (10 / 4)).round()
+        : 0;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.name),
+        title: Text(_pool?.name ?? 'Pool Details'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.close_rounded),
+            onPressed: () {
+              Navigator.popAndPushNamed(context, HomeView.routeName);
+            },
+          ),
+        ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: SizeConfig.screenHeight * 0.36,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                ),
-                image: widget.isNetworkImage
-                    ? DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(widget.image),
-                      )
-                    : const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/icons/banknote-envelope.png'),
-                      ),
-              ),
-            ),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.02,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green[300],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.auto_graph_outlined,
-                    color: Colors.white,
-                  ),
-                  label: const Text(
-                    'Deposit',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green[300],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.play_for_work_sharp,
-                    color: Colors.white,
-                  ),
-                  label: const Text(
-                    'Withdraw',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: const Icon(Icons.share),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.02,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: SizeConfig.screenWidth * 0.66,
-                  child: Padding(
+      body: _isLoading
+          ? Center(
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: kPrimaryColor, size: SizeConfig.screenHeight * 0.04),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.screenWidth * 0.032,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text.rich(
-                            textAlign: TextAlign.start,
-                            TextSpan(
-                              text: 'Pool: ',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: widget.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 16)),
-                              ],
+                        horizontal: SizeConfig.screenWidth * 0.032),
+                    child: Card(
+                      elevation: 2,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(_getPoolProgressComment(progress),
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500)),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text.rich(
-                            textAlign: TextAlign.start,
-                            TextSpan(
-                              text: 'Start Date: ',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: widget.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 16)),
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      '${_pool!.totalDeposits} out of ${_pool!.targetAmount}',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500)),
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text.rich(
-                            textAlign: TextAlign.start,
-                            TextSpan(
-                              text: 'End Date: ',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: widget.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 16)),
-                              ],
+                            StepProgressIndicator(
+                              totalSteps: 4,
+                              currentStep: progress,
+                              selectedColor: kPrimaryColor,
+                              unselectedColor: kSecondaryColor,
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text.rich(
-                            textAlign: TextAlign.start,
-                            TextSpan(
-                              text: 'Description: ',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: widget.name.replaceRange(
-                                        11, widget.name.length, '...'),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 16)),
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8),
+                                    child: Icon(Icons.timelapse_outlined),
+                                  ),
+                                  Text(
+                                      'Ends On: ${UtilFormatter.formatDate(_pool!.endDate)}'),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text.rich(
-                            textAlign: TextAlign.start,
-                            TextSpan(
-                              text: 'Target: ',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: widget.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 16)),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text.rich(
-                            textAlign: TextAlign.start,
-                            TextSpan(
-                              text: 'Current Amount: ',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: widget.name,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 16)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-                Column(
-                  children: [
-                    const Text(
-                      'Progress',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight * 0.02,
-                    ),
-                    CircularPercentIndicator(
-                      radius: SizeConfig.screenHeight * 0.06,
-                      lineWidth: 5.0,
-                      percent: 0.90,
-                      center: const Text("90%"),
-                      progressColor: Colors.green,
-                    ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.02,
-            ),
-            const SectionHeader(
-              text: 'Contributions',
-              showViewAll: false,
-            ),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.02,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.screenWidth * 0.02),
-              child: ListView.builder(
-                itemCount: listData.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Row(
-                      children: [
-                        Text(
-                          listData[index][0],
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
-                        ),
-                        const Spacer(),
-                        Text(listData[index][1]),
-                      ],
-                    ),
-                  );
-                },
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.016,
+                  ),
+                  BorderedButton(
+                    pool: _pool,
+                    onTap: () {
+                      Navigator.pushNamed(context, Withdraw.routeName,
+                          arguments: _pool!.poolId);
+                    },
+                    text: "Withdraw Now",
+                  ),
+                  NonBorderedButton(
+                    pool: _pool,
+                    onTap: () {
+                      Navigator.pushNamed(context, Deposit.routeName,
+                          arguments: _pool!.poolId);
+                    },
+                    text: "Deposit",
+                  )
+                ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
