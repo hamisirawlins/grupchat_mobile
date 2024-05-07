@@ -4,6 +4,7 @@ import 'package:grupchat/modules/app/screens/widgets/pools/bordered_button.dart'
 import 'package:grupchat/modules/app/screens/widgets/pools/non_bordered_button.dart';
 import 'package:grupchat/modules/app/screens/screens.transactions/deposit.dart';
 import 'package:grupchat/modules/app/screens/screens.transactions/withdraw.dart';
+import 'package:grupchat/modules/app/screens/widgets/transactions/transactions_list.dart';
 import 'package:grupchat/services/data_service.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
@@ -168,7 +169,11 @@ class _PoolDetailsState extends State<PoolDetails> {
                           arguments: _pool!.poolId);
                     },
                     text: "Deposit",
-                  )
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.04,
+                  ),
+                  TransactionsList(pool: _pool),
                 ],
               ),
             ),

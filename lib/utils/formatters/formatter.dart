@@ -22,4 +22,10 @@ class UtilFormatter {
   static String formatDate(String date) {
     return DateFormat('dd MMM yy').format(DateTime.parse(date));
   }
+
+  static String formatDateTime(String date) {
+    final formattedDate =
+        DateFormat('dd MMM, hh:mm a').format(DateTime.parse(date));
+    return formattedDate;
+  }
 }

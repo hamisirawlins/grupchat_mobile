@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
               text: "Trends",
               showViewAll: false,
             ),
-            HomeTrends(),
             SizedBox(height: SizeConfig.screenHeight * 0.016),
             const SectionHeader(
               text: "Active Pools",
@@ -55,4 +54,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

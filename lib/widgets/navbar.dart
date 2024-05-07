@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grupchat/modules/app/screens/screens.home/home.dart';
 import 'package:grupchat/modules/app/screens/screens.pools/pools.dart';
 import 'package:grupchat/modules/app/screens/screens.profile/profile.dart';
-import 'package:grupchat/modules/app/screens/screens.transactions/transactions.dart';
+import 'package:grupchat/modules/app/screens/screens.transactions/all_transactions.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 
 class HomeView extends StatefulWidget {

@@ -22,9 +22,9 @@ class AuthInput extends StatelessWidget {
         cursorColor: kSecondaryColor,
         decoration: InputDecoration(
           labelText: hintText,
-          labelStyle: TextStyle(color: kSecondaryColor),
+          labelStyle: TextStyle(color: kPrimaryColor),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kSecondaryColor),
+            borderSide: BorderSide(color: kPrimaryColor),
             borderRadius: BorderRadius.circular(20),
           ),
           border: OutlineInputBorder(

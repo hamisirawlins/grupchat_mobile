@@ -36,23 +36,25 @@ class _TermsAndConditionsCheckState extends State<TermsAndConditionsCheck> {
                   });
                 }),
           ),
-          const Text.rich(
-            TextSpan(text: "Agree to the ", children: [
-              TextSpan(
-                text: "Service Terms",
-                style: TextStyle(
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.blue),
-              ),
-              TextSpan(text: " and "),
-              TextSpan(
-                  text: "Privacy Policy",
+          const Flexible(
+            child: Text.rich(
+              TextSpan(text: "Agree to the ", children: [
+                TextSpan(
+                  text: "Service Terms",
                   style: TextStyle(
                       color: Colors.blue,
                       decoration: TextDecoration.underline,
-                      decorationColor: Colors.blue))
-            ]),
+                      decorationColor: Colors.blue),
+                ),
+                TextSpan(text: " and "),
+                TextSpan(
+                    text: "Privacy Policy",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.blue))
+              ]),
+            ),
           ),
         ],
       ),
