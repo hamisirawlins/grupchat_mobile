@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grupchat/models/pool.dart';
-import 'package:grupchat/modules/app/screens/screens.transactions/all_transactions.dart';
 import 'package:grupchat/modules/app/screens/screens.transactions/specific_transactions.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';

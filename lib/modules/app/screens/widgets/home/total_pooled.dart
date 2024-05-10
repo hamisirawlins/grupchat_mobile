@@ -8,29 +8,40 @@ class TotalPooled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          "Total Pooled:",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.04),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              Image.asset("assets/images/warrior-shield.png",
+                  height: SizeConfig.screenHeight * 0.08)
+            ],
           ),
-        ),
-        SizedBox(
-          width: SizeConfig.screenWidth * 0.024,
-        ),
-        const Text(
-          "Ksh. 873,270.00",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "Total Pooled:",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                "873,270.00",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

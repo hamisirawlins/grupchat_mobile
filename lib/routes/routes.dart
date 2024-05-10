@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:grupchat/modules/app/screens/screens.pools/create_pool.dart';
 import 'package:grupchat/modules/app/screens/screens.pools/pool_details.dart';
@@ -37,14 +39,16 @@ final Map<String, WidgetBuilder> appRoutes = {
     final args = ModalRoute.of(context)?.settings.arguments;
     if (args is String) {
       return Deposit(poolId: args);
+    } else {
+      return Deposit(params: args);
     }
-    throw Exception('Invalid poolId argument');
   },
   Withdraw.routeName: (context) {
     final args = ModalRoute.of(context)?.settings.arguments;
     if (args is String) {
       return Withdraw(poolId: args);
+    } else {
+      return Withdraw(params: args);
     }
-    throw Exception('Invalid poolId argument');
   },
 };

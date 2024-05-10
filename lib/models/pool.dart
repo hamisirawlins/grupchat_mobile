@@ -49,6 +49,27 @@ class Pool {
       deletedAt: json['deleted_at'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'pool_id': poolId,
+      'creator_id': creatorId,
+      'name': name,
+      'target_amount': targetAmount,
+      'type': type,
+      'description': description,
+      'imageurl': imageUrl,
+      'end_date': endDate,
+      'created_at': createdAt,
+      'archived': archived,
+      'deleted_at': deletedAt,
+      'insights': {
+        'totalDeposits': totalDeposits,
+        'totalWithdrawals': totalWithdrawals,
+      },
+      'numberOfMembers': numberOfMembers,
+    };
+  }
 }
 
 class WithdrawRequest {
@@ -56,6 +77,20 @@ class WithdrawRequest {
   final int phone;
 
   WithdrawRequest({required this.amount, required this.phone});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'amount': amount,
+      'phone': phone,
+    };
+  }
+}
+
+class DepositRequest {
+  final int amount;
+  final int phone;
+
+  DepositRequest({required this.amount, required this.phone});
 
   Map<String, dynamic> toJson() {
     return {

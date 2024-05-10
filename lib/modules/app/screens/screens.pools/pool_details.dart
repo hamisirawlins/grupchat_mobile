@@ -77,7 +77,7 @@ class _PoolDetailsState extends State<PoolDetails> {
           IconButton(
             icon: const Icon(Icons.close_rounded),
             onPressed: () {
-              Navigator.popAndPushNamed(context, HomeView.routeName);
+              Navigator.pop(context);
             },
           ),
         ],

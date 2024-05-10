@@ -7,8 +7,8 @@ import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class PoolCardsHorizonatal extends StatelessWidget {
-  const PoolCardsHorizonatal({
+class PoolCardsHorizontal extends StatelessWidget {
+  const PoolCardsHorizontal({
     super.key,
     required Future<List<Pool>> poolsFuture,
   }) : _poolsFuture = poolsFuture;
@@ -75,7 +75,7 @@ class PoolCardsHorizonatal extends StatelessWidget {
             );
           }
           return SizedBox(
-            height: SizeConfig.screenHeight * 0.22,
+            height: SizeConfig.screenHeight * 0.24,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
@@ -84,108 +84,103 @@ class PoolCardsHorizonatal extends StatelessWidget {
                       Navigator.pushNamed(context, PoolDetails.routeName,
                           arguments: pools[index].poolId);
                     },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.screenWidth * 0.016,
-                      ),
+                    child: Card(
+                      color: kPrimaryColor,
+                      elevation: 3,
                       child: Container(
-                        width: SizeConfig.screenHeight * 0.2,
-                        decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.circular(20),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.screenWidth * 0.016,
                         ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  height: SizeConfig.screenHeight * 0.048,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: SizeConfig.screenWidth * 0.032,
-                                  ),
-                                  child: Text(
-                                    pools[index].name,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Flexible(
-                                    child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          SizeConfig.screenWidth * 0.032),
-                                  child: Text(
-                                    NumberFormat("###,###,###,###.00#", "en_US")
-                                        .format(pools[index].targetAmount),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                )),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CustomCircularProgressIndicator(
-                                  currentValue: pools[index].totalDeposits,
-                                  totalValue: pools[index].targetAmount,
-                                  radius: SizeConfig.screenWidth * 0.084,
-                                  linewidth: 3),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.screenWidth * 0.032,
-                                  vertical: SizeConfig.screenHeight * 0.008),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                        child: Container(
+                          width: SizeConfig.screenHeight * 0.2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
                                 children: [
-                                  Expanded(
-                                    flex: 6,
-                                    child: Text(
-                                        "Ends: ${DateFormat('dd MMM yy').format(DateTime.parse(pools[index].endDate))}",
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500)),
+                                  SizedBox(
+                                    height: SizeConfig.screenHeight * 0.048,
                                   ),
-                                  Expanded(
-                                      flex: 4,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            "${pools[index].numberOfMembers}",
-                                            style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          SizedBox(
-                                            width:
-                                                SizeConfig.screenWidth * 0.008,
-                                          ),
-                                          const Icon(
-                                            Icons.people_alt_outlined,
-                                            color: Colors.white,
-                                            size: 16,
-                                          ),
-                                        ],
-                                      )),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          SizeConfig.screenWidth * 0.032,
+                                    ),
+                                    child: Text(
+                                      pools[index].name,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
+                              Row(
+                                children: [
+                                  Flexible(
+                                      child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            SizeConfig.screenWidth * 0.032),
+                                    child: Text(
+                                      NumberFormat(
+                                              "###,###,###,###.00#", "en_US")
+                                          .format(pools[index].targetAmount),
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  )),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CustomCircularProgressIndicator(
+                                    currentValue: pools[index].totalDeposits,
+                                    totalValue: pools[index].targetAmount,
+                                    radius: SizeConfig.screenWidth * 0.1,
+                                    linewidth: 4),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: SizeConfig.screenWidth * 0.032,
+                                    vertical: SizeConfig.screenHeight * 0.008),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                        flex: 4,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              "${pools[index].numberOfMembers}",
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            SizedBox(
+                                              width: SizeConfig.screenWidth *
+                                                  0.008,
+                                            ),
+                                            const Icon(
+                                              Icons.people_alt_outlined,
+                                              color: Colors.white,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class Withdraw extends StatelessWidget {
   static const String routeName = '/withdraw';
-  final String poolId;
-  const Withdraw({super.key, required this.poolId});
+  final String? poolId;
+  final dynamic params;
+  const Withdraw({super.key, this.poolId, this.params});
 
   @override
   Widget build(BuildContext context) {

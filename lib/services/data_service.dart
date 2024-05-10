@@ -1,5 +1,6 @@
 import 'package:grupchat/main.dart';
 import 'package:grupchat/models/pool.dart';
+import 'package:grupchat/models/transaction.dart';
 import 'package:grupchat/utils/http/http_client.dart';
 
 class DataService {
@@ -28,11 +29,65 @@ class DataService {
   Future<void> withdrawFromPool(String poolId, WithdrawRequest request) async {
     final response = await HttpUtility.post(
         'pools/$poolId/withdraw', request.toJson(), token);
-    print(response);
     if (response.containsKey('message')) {
       return;
     } else {
       throw Exception('Failed to withdraw from pool: ${response['error']}');
+    }
+  }
+
+  Future<void> depositToPool(String poolId, DepositRequest request) async {
+    final response = await HttpUtility.post(
+        'pools/$poolId/deposit', request.toJson(), token);
+    if (response.containsKey('message')) {
+      return;
+    } else {
+      throw Exception('Failed to deposit to pool: ${response['error']}');
+    }
+  }
+
+  Future<void> createPool(Pool pool) async {
+    final response = await HttpUtility.post('pools', pool.toJson(), token);
+    if (response.containsKey('message')) {
+      return;
+    } else {
+      throw Exception('Failed to create pool: ${response['error']}');
+    }
+  }
+
+  Future<void> updatePool(String poolId, Pool pool) async {
+    final response =
+        await HttpUtility.put('pools/$poolId', pool.toJson(), token);
+    if (response.containsKey('message')) {
+      return;
+    } else {
+      throw Exception('Failed to update pool: ${response['error']}');
+    }
+  }
+
+  Future<void> deletePool(String poolId) async {
+    final response = await HttpUtility.delete('pools/$poolId', token);
+    if (response.containsKey('message')) {
+      return;
+    } else {
+      throw Exception('Failed to delete pool: ${response['error']}');
+    }
+  }
+
+  // get transactions
+  Future<List<Transaction>> getTransactions(
+      {String? poolId, String? search}) async {
+    final queryParams = {
+      if (search != null) 'search': search,
+      if (poolId != null) 'poolId': poolId,
+    };
+    final response = await HttpUtility.get('pools/transactions', token,
+        queryParams: queryParams);
+    if (response.containsKey('data')) {
+      final List<dynamic> jsonData = response['data'];
+      return jsonData.map((json) => Transaction.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load transactions: ${response['error']}');
     }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:grupchat/modules/app/screens/widgets/common/search_bar.dart';
 import 'package:grupchat/modules/app/screens/widgets/home/total_pooled.dart';
 import 'package:grupchat/utils/constants/colors.dart';
@@ -7,10 +9,7 @@ import 'package:grupchat/utils/constants/sys_util.dart';
 class HomeHeader extends StatelessWidget {
   const HomeHeader({
     super.key,
-    required TextEditingController searchController,
-  }) : _searchController = searchController;
-
-  final TextEditingController _searchController;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,18 +34,41 @@ class HomeHeader extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Searchbar(searchController: _searchController),
-            SizedBox(height: SizeConfig.screenHeight * 0.022),
-            const TotalPooled(),
-            SizedBox(height: SizeConfig.screenHeight * 0.022),
-            const Text(
-              "Powering Plans Beyond The Group Chat",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.screenWidth * 0.04),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Powering Plans",
+                        style: GoogleFonts.raleway(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Beyond The Group Chat",
+                        style: GoogleFonts.raleway(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
+            SizedBox(height: SizeConfig.screenHeight * 0.018),
+            const TotalPooled(),
+            SizedBox(height: SizeConfig.screenHeight * 0.022),
           ],
         ),
       ),
