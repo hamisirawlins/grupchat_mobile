@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grupchat/models/pool.dart';
+import 'package:grupchat/models/pool_list.dart';
 import 'package:grupchat/modules/app/screens/widgets/home/home_header.dart';
 import 'package:grupchat/modules/app/screens/widgets/common/section_header_title.dart';
 import 'package:grupchat/modules/app/screens/widgets/home/pool_cards_horizontal.dart';
@@ -15,14 +16,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Pool>> _poolsFuture;
+  late Future<List<PoolListItem>> _poolsFuture;
   @override
   void initState() {
     super.initState();
     _poolsFuture = _fetchPools();
   }
 
-  Future<List<Pool>> _fetchPools() async {
+  Future<List<PoolListItem>> _fetchPools() async {
     final gatewayService = DataService();
     return await gatewayService.getPools();
   }

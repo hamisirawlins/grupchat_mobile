@@ -1,22 +1,23 @@
 import 'package:grupchat/main.dart';
 import 'package:grupchat/models/pool.dart';
+import 'package:grupchat/models/pool_list.dart';
 import 'package:grupchat/models/transaction.dart';
 import 'package:grupchat/utils/http/http_client.dart';
 
 class DataService {
   final token = supabase.auth.currentSession!.accessToken;
 
-  Future<List<Pool>> getPools() async {
+  Future<List<PoolListItem>> getPools() async {
     final response = await HttpUtility.get('pools', token);
     if (response.containsKey('data')) {
-      final List<dynamic> jsonData = response['data'];
-      return jsonData.map((json) => Pool.fromJson(json)).toList();
+      final jsonData = response['data'] as List;
+      return jsonData.map((json) => PoolListItem.fromJson(json)).toList();
     } else {
       throw Exception('Failed to load pools: ${response['error']}');
     }
   }
 
-  Future<Pool?> getPool(String poolId) async {
+  Future<Pool> getPool(String poolId) async {
     final response = await HttpUtility.get('pools/$poolId', token);
     if (response.containsKey('pool_id')) {
       final jsonData = response;
@@ -26,7 +27,7 @@ class DataService {
     }
   }
 
-  Future<void> withdrawFromPool(String poolId, WithdrawRequest request) async {
+  Future<void> withdrawFromPool(String poolId, dynamic request) async {
     final response = await HttpUtility.post(
         'pools/$poolId/withdraw', request.toJson(), token);
     if (response.containsKey('message')) {
@@ -36,7 +37,7 @@ class DataService {
     }
   }
 
-  Future<void> depositToPool(String poolId, DepositRequest request) async {
+  Future<void> depositToPool(String poolId, dynamic request) async {
     final response = await HttpUtility.post(
         'pools/$poolId/deposit', request.toJson(), token);
     if (response.containsKey('message')) {
@@ -76,10 +77,12 @@ class DataService {
 
   // get transactions
   Future<List<Transaction>> getTransactions(
-      {String? poolId, String? search}) async {
+      {String? poolId, String? search, int? page, int? pageSize}) async {
     final queryParams = {
       if (search != null) 'search': search,
       if (poolId != null) 'poolId': poolId,
+      if (page != null) 'page': page.toString(),
+      if (pageSize != null) 'pageSize': pageSize.toString()
     };
     final response = await HttpUtility.get('pools/transactions', token,
         queryParams: queryParams);

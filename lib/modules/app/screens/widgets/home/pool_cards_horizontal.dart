@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grupchat/models/pool.dart';
+import 'package:grupchat/models/pool_list.dart';
 import 'package:grupchat/modules/app/screens/screens.pools/pool_details.dart';
 import 'package:grupchat/modules/app/screens/widgets/home/circular_progress.dart';
 import 'package:grupchat/utils/constants/colors.dart';
@@ -10,14 +10,14 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 class PoolCardsHorizontal extends StatelessWidget {
   const PoolCardsHorizontal({
     super.key,
-    required Future<List<Pool>> poolsFuture,
+    required Future<List<PoolListItem>> poolsFuture,
   }) : _poolsFuture = poolsFuture;
 
-  final Future<List<Pool>> _poolsFuture;
+  final Future<List<PoolListItem>> _poolsFuture;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Pool>>(
+    return FutureBuilder<List<PoolListItem>>(
       future: _poolsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -140,7 +140,8 @@ class PoolCardsHorizontal extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: CustomCircularProgressIndicator(
-                                    currentValue: pools[index].totalDeposits,
+                                    currentValue:
+                                        pools[index].insights.totalDeposits,
                                     totalValue: pools[index].targetAmount,
                                     radius: SizeConfig.screenWidth * 0.1,
                                     linewidth: 4),

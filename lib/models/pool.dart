@@ -1,18 +1,17 @@
 class Pool {
-  final String poolId;
-  final String creatorId;
-  final String name;
-  final int targetAmount;
-  final String type;
-  final String description;
-  final String imageUrl;
-  final String endDate;
-  final String createdAt;
-  final bool archived;
-  final String? deletedAt;
-  final int totalDeposits;
-  final int totalWithdrawals;
-  final int numberOfMembers;
+  String poolId;
+  String creatorId;
+  String name;
+  int targetAmount;
+  String type;
+  String description;
+  String imageUrl;
+  String endDate;
+  DateTime createdAt;
+  bool archived;
+  DateTime? deletedAt;
+  Insights insights;
+  List<User> users;
 
   Pool({
     required this.poolId,
@@ -25,77 +24,79 @@ class Pool {
     required this.endDate,
     required this.createdAt,
     required this.archived,
-    required this.totalDeposits,
-    required this.totalWithdrawals,
-    required this.numberOfMembers,
+    required this.insights,
+    required this.users,
     this.deletedAt,
   });
 
   factory Pool.fromJson(Map<String, dynamic> json) {
     return Pool(
-      poolId: json['pool_id'] ?? '',
-      creatorId: json['creator_id'] ?? '',
-      name: json['name'] ?? '',
-      targetAmount: json['target_amount'] ?? 0,
-      type: json['type'] ?? '',
-      description: json['description'] ?? '',
-      imageUrl: json['imageurl'] ?? '',
-      endDate: json['end_date'] ?? '',
-      createdAt: json['created_at'] ?? '',
-      archived: json['archived'] ?? false,
-      totalDeposits: json['insights']['totalDeposits'] ?? 0,
-      totalWithdrawals: json['insights']['totalWithdrawals'] ?? 0,
-      numberOfMembers: json['numberOfMembers'] ?? 0,
-      deletedAt: json['deleted_at'],
+      poolId: json['pool_id'],
+      creatorId: json['creator_id'],
+      name: json['name'],
+      targetAmount: json['target_amount'],
+      type: json['type'],
+      description: json['description'],
+      imageUrl: json['imageurl'],
+      endDate: (json['end_date']),
+      createdAt: DateTime.parse(json['created_at']),
+      archived: json['archived'],
+      insights: Insights.fromJson(json['insights']),
+      users: List<User>.from(json['users'].map((x) => User.fromJson(x))),
+      deletedAt: json['deleted_at'] != null
+          ? DateTime.parse(json['deleted_at'])
+          : null,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'pool_id': poolId,
-      'creator_id': creatorId,
-      'name': name,
-      'target_amount': targetAmount,
-      'type': type,
-      'description': description,
-      'imageurl': imageUrl,
-      'end_date': endDate,
-      'created_at': createdAt,
-      'archived': archived,
-      'deleted_at': deletedAt,
-      'insights': {
-        'totalDeposits': totalDeposits,
-        'totalWithdrawals': totalWithdrawals,
-      },
-      'numberOfMembers': numberOfMembers,
-    };
+  //to json
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'target_amount': targetAmount,
+        'type': type,
+        'description': description,
+        'imageurl': imageUrl,
+        'end_date': endDate,
+        'archived': archived,
+      };
+}
+
+class Insights {
+  int totalDeposits;
+  int totalWithdrawals;
+
+  Insights({
+    required this.totalDeposits,
+    required this.totalWithdrawals,
+  });
+
+  factory Insights.fromJson(Map<String, dynamic> json) {
+    return Insights(
+      totalDeposits: json['totalDeposits'],
+      totalWithdrawals: json['totalWithdrawals'],
+    );
   }
 }
 
-class WithdrawRequest {
-  final int amount;
-  final int phone;
+class User {
+  String email;
+  String profileImg;
+  int totalDeposits;
+  int totalWithdrawals;
 
-  WithdrawRequest({required this.amount, required this.phone});
+  User({
+    required this.email,
+    required this.profileImg,
+    required this.totalDeposits,
+    required this.totalWithdrawals,
+  });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'amount': amount,
-      'phone': phone,
-    };
-  }
-}
-
-class DepositRequest {
-  final int amount;
-  final int phone;
-
-  DepositRequest({required this.amount, required this.phone});
-
-  Map<String, dynamic> toJson() {
-    return {
-      'amount': amount,
-      'phone': phone,
-    };
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      email: json['email'],
+      profileImg: json['profile_img'],
+      totalDeposits: json['totalDeposits'],
+      totalWithdrawals: json['totalWithdrawals'],
+    );
   }
 }

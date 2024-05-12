@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:grupchat/models/pool.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 
 class NonBorderedButton extends StatelessWidget {
-  final Pool? pool;
+  final String poolId;
   final VoidCallback onTap;
   final String text;
   const NonBorderedButton({
     super.key,
-    required this.pool,
+    required this.poolId,
     required this.onTap,
     required this.text,
   });

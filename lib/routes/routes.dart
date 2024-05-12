@@ -5,7 +5,7 @@ import 'package:grupchat/modules/app/screens/screens.pools/create_pool.dart';
 import 'package:grupchat/modules/app/screens/screens.pools/pool_details.dart';
 import 'package:grupchat/modules/app/screens/screens.transactions/deposit.dart';
 import 'package:grupchat/modules/app/screens/screens.transactions/all_transactions.dart';
-import 'package:grupchat/modules/app/screens/screens.transactions/specific_transactions.dart';
+import 'package:grupchat/modules/app/screens/screens.transactions/transactions.dart';
 import 'package:grupchat/modules/app/screens/screens.transactions/withdraw.dart';
 import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/modules/auth/screens/screens.forgot_password/forgot_password_screen.dart';

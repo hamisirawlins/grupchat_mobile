@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:grupchat/models/pool.dart';
+import 'package:grupchat/models/transaction.dart';
 import 'package:grupchat/modules/app/screens/widgets/pools/bordered_button.dart';
 import 'package:grupchat/modules/app/screens/widgets/pools/non_bordered_button.dart';
 import 'package:grupchat/modules/app/screens/screens.transactions/deposit.dart';
 import 'package:grupchat/modules/app/screens/screens.transactions/withdraw.dart';
-import 'package:grupchat/modules/app/screens/widgets/transactions/transactions_list.dart';
+import 'package:grupchat/modules/app/screens/widgets/transactions/transactions_section.dart';
 import 'package:grupchat/services/data_service.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:grupchat/utils/formatters/formatter.dart';
-import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/widgets/show_snackbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -28,12 +28,32 @@ class _PoolDetailsState extends State<PoolDetails> {
   final DataService _dataService = DataService();
 
   Pool? _pool;
+  List<Transaction> _transactions = [];
   bool _isLoading = false;
+  bool _isTransactionsLoading = false;
 
   @override
   void initState() {
     super.initState();
     _loadPoolDetails();
+    _loadPoolTransactions();
+  }
+
+  Future<void> _loadPoolTransactions() async {
+    try {
+      setState(() {
+        _isTransactionsLoading = true;
+      });
+
+      final transactions = await _dataService.getTransactions(
+          poolId: widget.poolId, page: 1, pageSize: 3);
+      setState(() {
+        _transactions = transactions;
+        _isTransactionsLoading = false;
+      });
+    } catch (e) {
+      if (mounted) showSnackBar(context, e.toString());
+    }
   }
 
   Future<void> _loadPoolDetails() async {
@@ -67,7 +87,8 @@ class _PoolDetailsState extends State<PoolDetails> {
   @override
   Widget build(BuildContext context) {
     int progress = _pool != null
-        ? (_pool!.totalDeposits / _pool!.targetAmount * (10 / 4)).round()
+        ? (_pool!.insights.totalDeposits / _pool!.targetAmount * (10 / 4))
+            .round()
         : 0;
 
     return Scaffold(
@@ -118,7 +139,7 @@ class _PoolDetailsState extends State<PoolDetails> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                      '${_pool!.totalDeposits} out of ${_pool!.targetAmount}',
+                                      '${_pool!.insights.totalDeposits} out of ${_pool!.targetAmount}',
                                       style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500)),
@@ -155,7 +176,7 @@ class _PoolDetailsState extends State<PoolDetails> {
                     height: SizeConfig.screenHeight * 0.016,
                   ),
                   BorderedButton(
-                    pool: _pool,
+                    poolId: _pool!.poolId,
                     onTap: () {
                       Navigator.pushNamed(context, Withdraw.routeName,
                           arguments: _pool!.poolId);
@@ -163,7 +184,7 @@ class _PoolDetailsState extends State<PoolDetails> {
                     text: "Withdraw Now",
                   ),
                   NonBorderedButton(
-                    pool: _pool,
+                    poolId: _pool!.poolId,
                     onTap: () {
                       Navigator.pushNamed(context, Deposit.routeName,
                           arguments: _pool!.poolId);
@@ -173,7 +194,11 @@ class _PoolDetailsState extends State<PoolDetails> {
                   SizedBox(
                     height: SizeConfig.screenHeight * 0.04,
                   ),
-                  TransactionsList(pool: _pool),
+                  TransactionSection(
+                    pool: _pool!,
+                    transactions: _transactions,
+                    isLoading: _isTransactionsLoading,
+                  ),
                 ],
               ),
             ),

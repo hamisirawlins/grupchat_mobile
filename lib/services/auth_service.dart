@@ -30,7 +30,6 @@ class AuthService {
         accessToken: accessToken,
       );
       res = 'Success';
-      print('--------------------Google Sign In Success--------------');
       return res;
     } catch (e) {
       return res;

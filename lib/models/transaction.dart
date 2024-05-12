@@ -45,3 +45,4 @@ class Transaction {
         email: json['users']['email']);
   }
 }
+
