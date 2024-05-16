@@ -184,7 +184,6 @@ class _PoolDetailsState extends State<PoolDetails> {
                     text: "Withdraw Now",
                   ),
                   NonBorderedButton(
-                    poolId: _pool!.poolId,
                     onTap: () {
                       Navigator.pushNamed(context, Deposit.routeName,
                           arguments: _pool!.poolId);
@@ -192,13 +191,48 @@ class _PoolDetailsState extends State<PoolDetails> {
                     text: "Deposit",
                   ),
                   SizedBox(
-                    height: SizeConfig.screenHeight * 0.04,
+                    height: SizeConfig.screenHeight * 0.02,
                   ),
                   TransactionSection(
                     pool: _pool!,
                     transactions: _transactions,
                     isLoading: _isTransactionsLoading,
                   ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.04),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/pool-members',
+                            arguments: _pool!.poolId);
+                      },
+                      child: Container(
+                        height: SizeConfig.screenHeight * 0.064,
+                        decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.screenWidth * 0.04),
+                          child: const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Manage Your Pool Members?',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Icon(
+                                  Icons.people_alt_rounded,
+                                  color: Colors.white,
+                                ),
+                              ]),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

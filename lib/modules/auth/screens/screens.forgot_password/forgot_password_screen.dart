@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,9 +32,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       if (mounted) {
         Navigator.pushNamed(context, SuccessScreen.routeName);
       }
-    } on FirebaseAuthException catch (e) {
+    } on Exception catch (e) {
       if (mounted) {
-        showSnackBar(context, e.message!);
+        showSnackBar(context, e.toString());
       }
     }
     if (mounted) {

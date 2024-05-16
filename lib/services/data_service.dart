@@ -1,6 +1,7 @@
 import 'package:grupchat/main.dart';
 import 'package:grupchat/models/pool.dart';
 import 'package:grupchat/models/pool_list.dart';
+import 'package:grupchat/models/pool_members.dart';
 import 'package:grupchat/models/transaction.dart';
 import 'package:grupchat/utils/http/http_client.dart';
 
@@ -24,6 +25,28 @@ class DataService {
       return Pool.fromJson(jsonData);
     } else {
       throw Exception('Failed to load pool details: ${response['error']}');
+    }
+  }
+
+  Future<List<PoolMember>> getPoolMembers(String poolId) async {
+    final queryParams = {'page': 1.toString(), 'pageSize': 40.toString()};
+    final response = await HttpUtility.get('pools/$poolId/members', token,
+        queryParams: queryParams);
+    if (response.containsKey('data')) {
+      final jsonData = response['data'] as List;
+      return jsonData.map((json) => PoolMember.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load members: ${response['error']}');
+    }
+  }
+
+  Future<void> removeMember(String poolId, String memberId) async {
+    final response =
+        await HttpUtility.delete('pools/$poolId/members/$memberId', token);
+    if (response.containsKey('message')) {
+      return;
+    } else {
+      throw Exception('Failed to remove member: ${response['error']}');
     }
   }
 
@@ -86,6 +109,7 @@ class DataService {
     };
     final response = await HttpUtility.get('pools/transactions', token,
         queryParams: queryParams);
+
     if (response.containsKey('data')) {
       final List<dynamic> jsonData = response['data'];
       return jsonData.map((json) => Transaction.fromJson(json)).toList();

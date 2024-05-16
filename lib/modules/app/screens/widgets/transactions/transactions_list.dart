@@ -24,7 +24,7 @@ class TransactionsList extends StatelessWidget {
                 color: kPrimaryColor, size: SizeConfig.screenHeight * 0.04),
           )
         : SizedBox(
-            height: SizeConfig.screenHeight * 0.4,
+            height: SizeConfig.screenHeight * 0.32,
             child: ListView.builder(
               itemCount: _transactions.length,
               scrollDirection: Axis.vertical,

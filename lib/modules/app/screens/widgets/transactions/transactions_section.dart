@@ -26,14 +26,15 @@ class TransactionSection extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.screenHeight * 0.02,
-              horizontal: SizeConfig.screenWidth * 0.04),
+              vertical: SizeConfig.screenHeight * 0.004,
+              horizontal: SizeConfig.screenWidth * 0.044),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "March 2024",
-                style: TextStyle(fontWeight: FontWeight.w600),
+                "Latest Transactions",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600, color: Colors.grey[700]),
               ),
               GestureDetector(
                 onTap: () {

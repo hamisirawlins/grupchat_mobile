@@ -34,7 +34,7 @@ class TotalPooled extends StatelessWidget {
                 "873,270.00",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 36,
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
                 ),
               ),

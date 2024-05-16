@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grupchat/modules/app/screens/widgets/common/search_bar.dart';
 import 'package:grupchat/modules/app/screens/widgets/home/total_pooled.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';

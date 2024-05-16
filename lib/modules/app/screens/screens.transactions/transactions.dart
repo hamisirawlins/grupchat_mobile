@@ -64,7 +64,8 @@ class _SpecifiedTransactionsListState extends State<SpecifiedTransactionsList> {
               child: LoadingAnimationWidget.staggeredDotsWave(
                   color: kPrimaryColor, size: SizeConfig.screenHeight * 0.04),
             )
-          : TransactionsList(transactions: _transactions, isLoading: _isLoading),
+          : TransactionsList(
+              transactions: _transactions, isLoading: _isLoading),
     );
   }
 }

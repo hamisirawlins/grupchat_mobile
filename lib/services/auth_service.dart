@@ -1,9 +1,23 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grupchat/main.dart';
+import 'package:grupchat/models/user.dart';
+import 'package:grupchat/utils/http/http_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
+  final token = supabase.auth.currentSession!.accessToken;
+
+  Future<UserModel> getUserDetails(String userId) async {
+    final response = await HttpUtility.get('admin/users/$userId', token);
+    if (response.containsKey('id')) {
+      final jsonData = response;
+      return UserModel.fromJson(jsonData);
+    } else {
+      throw Exception('Failed to load user details: ${response['error']}');
+    }
+  }
+
   Future<String> signInWithGoogle() async {
     String res = 'failed';
     try {

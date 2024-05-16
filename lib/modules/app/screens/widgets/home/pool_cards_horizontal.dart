@@ -4,6 +4,7 @@ import 'package:grupchat/modules/app/screens/screens.pools/pool_details.dart';
 import 'package:grupchat/modules/app/screens/widgets/home/circular_progress.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
+import 'package:grupchat/utils/formatters/formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -144,7 +145,7 @@ class PoolCardsHorizontal extends StatelessWidget {
                                         pools[index].insights.totalDeposits,
                                     totalValue: pools[index].targetAmount,
                                     radius: SizeConfig.screenWidth * 0.1,
-                                    linewidth: 4),
+                                    linewidth: 6),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -153,6 +154,15 @@ class PoolCardsHorizontal extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
+                                    Expanded(
+                                      flex: 6,
+                                      child: Text(
+                                        UtilFormatter.formatShortDate(
+                                            pools[index].endDate),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ),
                                     Expanded(
                                         flex: 4,
                                         child: Row(

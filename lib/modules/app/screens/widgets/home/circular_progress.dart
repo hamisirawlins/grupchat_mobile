@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -37,8 +38,8 @@ class CustomCircularProgressIndicator extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      progressColor: Colors.green[300],
-      backgroundColor: Colors.white,
+      progressColor: Colors.blue[200],
+      backgroundColor: kAccentColor,
     );
   }
 }

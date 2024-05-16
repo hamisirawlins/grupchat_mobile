@@ -6,7 +6,8 @@ class HttpUtility {
   static String baseUrl = dotenv.env['GATEWAY_URL'] ?? '';
 
   // HTTP GET request
-  static Future<Map<String, dynamic>> get(String url, String token, {Map<String, dynamic>? queryParams}) async {
+  static Future<Map<String, dynamic>> get(String url, String token,
+      {Map<String, dynamic>? queryParams}) async {
     final uri = Uri.parse('$baseUrl/$url');
     final uriWithParams = uri.replace(queryParameters: queryParams);
     final response = await http.get(

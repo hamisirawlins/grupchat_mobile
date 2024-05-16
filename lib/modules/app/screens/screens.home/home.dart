@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               showViewAll: false,
             ),
             const QuickActions(),
-            SizedBox(height: SizeConfig.screenHeight * 0.016),
+            SizedBox(height: SizeConfig.screenHeight * 0.004),
             const SectionHeader(
               text: "Active Pools",
               showViewAll: false,
