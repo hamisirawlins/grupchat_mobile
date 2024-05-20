@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:grupchat/modules/app/screens/widgets/pools/non_bordered_button.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:date_time_picker/date_time_picker.dart';
@@ -42,12 +43,12 @@ class _CreatePoolState extends State<CreatePool> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Name:', style: TextStyle(color: Colors.black87)),
-              SizedBox(height: SizeConfig.screenHeight * 0.016),
+              SizedBox(height: SizeConfig.screenHeight * 0.008),
               TextField(
                 controller: _nameController,
                 decoration: const InputDecoration(
                   labelText: "The Pool's Name",
-                  labelStyle: TextStyle(color: Colors.black45, fontSize: 24),
+                  labelStyle: TextStyle(color: Colors.black45, fontSize: 32),
                   border: InputBorder.none,
                 ),
               ),
@@ -57,31 +58,35 @@ class _CreatePoolState extends State<CreatePool> {
                 controller: _descriptionController,
                 decoration: const InputDecoration(
                   labelText: "Pool Description",
-                  labelStyle: TextStyle(color: Colors.black45, fontSize: 24),
+                  labelStyle: TextStyle(color: Colors.black45, fontSize: 20),
                   border: InputBorder.none,
                 ),
               ),
               const Text('Target Amount:'),
-              SizedBox(height: SizeConfig.screenHeight * 0.02),
+              SizedBox(height: SizeConfig.screenHeight * 0.024),
               TextField(
                 keyboardType: TextInputType.number,
                 controller: _targetAmountController,
                 decoration: const InputDecoration(
                   labelText: "Target Amount",
-                  labelStyle: TextStyle(color: Colors.black45, fontSize: 24),
+                  labelStyle: TextStyle(color: Colors.black45, fontSize: 30),
                   border: InputBorder.none,
                 ),
               ),
-              const Text('End Date:'),
               SizedBox(height: SizeConfig.screenHeight * 0.02),
+              const Text('End Date:'),
+              SizedBox(height: SizeConfig.screenHeight * 0.01),
               DateTimePicker(
                 type: DateTimePickerType.date,
                 dateMask: 'yyyy-MM-dd',
                 initialValue: selectedDate.toIso8601String(),
                 firstDate: DateTime(2000),
                 lastDate: DateTime(2100),
-                icon: Icon(Icons.event),
-                dateLabelText: 'End Date',
+                decoration: const InputDecoration(
+                    labelText: 'End Date',
+                    labelStyle: TextStyle(color: Colors.black45, fontSize: 24),
+                    border: InputBorder.none,
+                    icon: Icon(Icons.event)),
                 onChanged: (val) {
                   setState(() {
                     selectedDate = DateTime.parse(val);

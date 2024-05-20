@@ -17,14 +17,14 @@ class AuthInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
+        cursorColor: kOrangeColor,
         controller: controller,
         obscureText: obscureText,
-        cursorColor: kSecondaryColor,
         decoration: InputDecoration(
           labelText: hintText,
-          labelStyle: TextStyle(color: kPrimaryColor),
+          labelStyle: const TextStyle(color: Colors.black),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimaryColor),
+            borderSide: BorderSide(color: kOrangeColor),
             borderRadius: BorderRadius.circular(20),
           ),
           border: OutlineInputBorder(

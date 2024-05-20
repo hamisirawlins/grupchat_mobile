@@ -4,7 +4,7 @@ import '../screens.login/login_screen.dart';
 import '../screens.signup/register_screen.dart';
 
 class LoginAndRegisterView extends StatefulWidget {
-    static const String routeName = '/auth';
+  static const String routeName = '/auth';
   const LoginAndRegisterView({super.key});
 
   @override
@@ -12,7 +12,7 @@ class LoginAndRegisterView extends StatefulWidget {
 }
 
 class _LoginAndRegisterViewState extends State<LoginAndRegisterView> {
-  bool showLoginScreen = false;
+  bool showLoginScreen = true;
 
   void toggleScreen() {
     setState(() {

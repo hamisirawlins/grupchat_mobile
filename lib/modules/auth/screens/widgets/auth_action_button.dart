@@ -16,7 +16,7 @@ class AuthActionButton extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-            color: kPrimaryColor, borderRadius: BorderRadius.circular(20)),
+            color: kOrangeColor, borderRadius: BorderRadius.circular(20)),
         child: Center(
           child: Text(
             text,

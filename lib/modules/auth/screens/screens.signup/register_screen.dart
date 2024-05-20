@@ -173,55 +173,6 @@ class _LoginScreenState extends State<RegisterScreen> {
               SizedBox(
                 height: SizeConfig.screenHeight * 0.02,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.screenWidth * 0.02),
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: Divider(
-                        thickness: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.screenWidth * 0.02),
-                      child: const Text(
-                        "Or Continue With",
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Divider(
-                        thickness: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: SizeConfig.screenHeight * 0.02,
-              ),
-              Center(
-                child: GestureDetector(
-                  onTap: googleSignIn,
-                  child: Container(
-                    padding: EdgeInsets.all(SizeConfig.screenWidth * 0.024),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black26, width: 2),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Image.asset(
-                      'assets/icons/google.png',
-                      width: SizeConfig.screenWidth * 0.12,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: SizeConfig.screenHeight * 0.02,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

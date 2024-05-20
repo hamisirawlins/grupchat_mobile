@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grupchat/modules/auth/screens/screens.onboarding/onboarding_screen.dart';
 import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/modules/auth/screens/screens.onboarding/auth_screen.dart';
 import 'package:grupchat/routes/routes.dart';
@@ -62,12 +63,12 @@ class _MyAppState extends State<MyApp> {
               case AuthChangeEvent.tokenRefreshed:
                 return const HomeView();
               case AuthChangeEvent.signedOut:
-                return const LoginAndRegisterView();
+                return const OnboardingScreen();
               case AuthChangeEvent.initialSession:
                 if (snapshot.data!.session != null) {
                   return const HomeView();
                 } else {
-                  return const LoginAndRegisterView();
+                  return const OnboardingScreen();
                 }
               default:
                 return Center(child: Text('${snapshot.data!.event}'));
@@ -75,7 +76,7 @@ class _MyAppState extends State<MyApp> {
           } else if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           } else {
-            return const LoginAndRegisterView();
+            return const OnboardingScreen();
           }
         },
       ),

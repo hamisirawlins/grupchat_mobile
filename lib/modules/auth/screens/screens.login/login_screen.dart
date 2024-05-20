@@ -21,6 +21,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  @override
+  dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
 //Sign In
   void signIn() async {
     if (emailController.text.isEmpty) {
@@ -51,7 +58,6 @@ class _LoginScreenState extends State<LoginScreen> {
           email: emailController.text, password: passwordController.text);
       if (mounted) {
         Navigator.pop(context);
-        Navigator.pushNamed(context, HomeView.routeName);
       }
     } on PostgrestException catch (e) {
       if (mounted) {
