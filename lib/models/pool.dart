@@ -5,13 +5,13 @@ class Pool {
   int targetAmount;
   String type;
   String description;
-  String imageUrl;
+  String? imageUrl;
   String endDate;
   DateTime createdAt;
-  bool archived;
+  bool? archived;
   DateTime? deletedAt;
   Insights insights;
-  List<User> users;
+  List<PoolUser> users;
 
   Pool({
     required this.poolId,
@@ -20,10 +20,10 @@ class Pool {
     required this.targetAmount,
     required this.type,
     required this.description,
-    required this.imageUrl,
+    this.imageUrl,
     required this.endDate,
     required this.createdAt,
-    required this.archived,
+    this.archived,
     required this.insights,
     required this.users,
     this.deletedAt,
@@ -42,7 +42,8 @@ class Pool {
       createdAt: DateTime.parse(json['created_at']),
       archived: json['archived'],
       insights: Insights.fromJson(json['insights']),
-      users: List<User>.from(json['users'].map((x) => User.fromJson(x))),
+      users:
+          List<PoolUser>.from(json['users'].map((x) => PoolUser.fromJson(x))),
       deletedAt: json['deleted_at'] != null
           ? DateTime.parse(json['deleted_at'])
           : null,
@@ -78,21 +79,21 @@ class Insights {
   }
 }
 
-class User {
+class PoolUser {
   String email;
   String profileImg;
   int totalDeposits;
   int totalWithdrawals;
 
-  User({
+  PoolUser({
     required this.email,
     required this.profileImg,
     required this.totalDeposits,
     required this.totalWithdrawals,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory PoolUser.fromJson(Map<String, dynamic> json) {
+    return PoolUser(
       email: json['email'],
       profileImg: json['profile_img'],
       totalDeposits: json['totalDeposits'],

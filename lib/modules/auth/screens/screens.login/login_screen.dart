@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -79,15 +81,21 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void googleSignIn() async {
-    String response = await AuthService().signInWithGoogle();
-    if (mounted) {
-      if (response == 'failed') {
-        showSnackBar(
-            context, 'Failed to sign in with Google, Please try again later.');
-      } else {
-        Navigator.pushNamedAndRemoveUntil(
-            context, HomeView.routeName, (route) => false);
-        showSnackBar(context, "Successfully Logged In!");
+    try {
+      final googleSignInAccount = await AuthService().signInWithGoogle();
+      if (mounted) {
+        if (googleSignInAccount == null) {
+          showSnackBar(context, "Google Sign In Failed! Please Retry Later");
+          return;
+        } else {
+          Navigator.pushNamedAndRemoveUntil(
+              context, HomeView.routeName, (route) => false);
+          showSnackBar(context, "Welcome!");
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        showSnackBar(context, e.toString());
       }
     }
   }
@@ -181,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.02),
                       child: const Text(
-                        "Or Continue With",
+                        "Or",
                         style: TextStyle(fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -197,17 +205,32 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: SizeConfig.screenHeight * 0.02,
               ),
-              Center(
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.screenWidth * 0.02,
+                    vertical: SizeConfig.screenWidth * 0.02),
                 child: GestureDetector(
                   onTap: googleSignIn,
                   child: Container(
-                    padding: EdgeInsets.all(SizeConfig.screenWidth * 0.024),
+                    padding: const EdgeInsets.all(12),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black26, width: 2),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Image.asset(
-                      'assets/icons/google.png',
-                      width: SizeConfig.screenWidth * 0.12,
+                        color: Colors.transparent,
+                        border: Border.all(color: kPrimaryColor, width: 3),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/logos/google.png',
+                            width: SizeConfig.screenHeight * 0.028,
+                            height: SizeConfig.screenHeight * 0.028),
+                        const SizedBox(width: 10),
+                        const Text(
+                          "Sign In With Google",
+                          style: TextStyle(fontWeight: FontWeight.w400),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -220,7 +243,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const Text("Don't have an account? "),
                   GestureDetector(
-                    onTap: widget.toggleScreen,
+                    onTap: () {
+                      Navigator.pushNamed(context, '/sign-up');
+                    },
                     child: const Text(
                       "Register",
                       style: TextStyle(fontWeight: FontWeight.bold),

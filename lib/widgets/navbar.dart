@@ -17,9 +17,9 @@ class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const HomeScreen(),
+    HomeScreen(),
     PoolsScreen(),
-    const ProfileScreen(),
+    ProfileScreen(),
   ];
 
   void _onDestinationSelected(int index) {

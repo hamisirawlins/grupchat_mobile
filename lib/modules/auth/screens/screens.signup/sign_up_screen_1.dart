@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grupchat/main.dart';
+import 'package:grupchat/modules/auth/screens/screens.onboarding/verify_email.dart';
 import 'package:grupchat/modules/auth/screens/screens.signup/add_phone_screen.dart';
 import 'package:grupchat/modules/auth/screens/widgets/auth_action_button.dart';
 import 'package:grupchat/modules/auth/screens/widgets/auth_input_field.dart';
@@ -9,7 +11,7 @@ import 'package:grupchat/modules/auth/screens/widgets/terms_and_conditions_check
 import 'package:grupchat/services/auth_service.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
-import 'package:grupchat/utils/local_storage/image_picker.dart';
+import 'package:grupchat/utils/formatters/formatter.dart';
 import 'package:grupchat/widgets/show_snackbar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,9 +28,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Uint8List? _imageSelection;
   final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   final passwordController = TextEditingController();
 
-  //Terms Check
+  // Terms Check
   bool isChecked = false;
   void toggleCheck() {
     setState(() {
@@ -37,14 +40,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   @override
-  dispose() {
+  void dispose() {
     nameController.dispose();
     emailController.dispose();
+    _imageSelection = null;
+    phoneController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
-  pickImage() async {
+  Future<void> pickImage() async {
     Uint8List? file = await selectImage(ImageSource.gallery);
     if (mounted) {
       if (file == null) {
@@ -57,17 +62,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
+  Future<Uint8List?> selectImage(ImageSource source) async {
+    final ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: source);
+    if (file != null) {
+      return await file.readAsBytes();
+    } else {
+      return null;
+    }
+  }
+
   void googleSignUp() async {
-        String response = await AuthService().signInWithGoogle();
-    if (mounted) {
-      if (response == 'failed') {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        });
+
+    try {
+      GoogleSignInAccount? response = await AuthService().signInWithGoogle();
+
+      final userData = {
+        'id': supabase.auth.currentUser!.id,
+        'email': response!.email,
+        'name': response.displayName,
+        'profile_img': response.photoUrl,
+      };
+
+      await supabase
+          .from('users')
+          .update(userData)
+          .eq('id', supabase.auth.currentUser!.id);
+
+      if (mounted) {
+        Navigator.pop(context);
+        Navigator.pushNamed(context, AddPhoneScreen.routeName,
+            arguments: response);
         showSnackBar(
-            context, 'Failed to sign in with Google, Please try again later.');
-      } else {
-        Navigator.pushNamed(
-            context, AddPhoneScreen.routeName);
-        showSnackBar(context, "Successfully Logged In!");
+            context, "Success! Please Add Your Phone Number To Finish Sign Up");
       }
+    } catch (e) {
+      showSnackBar(context, e.toString());
     }
   }
 
@@ -78,6 +117,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     if (emailController.text.isEmpty) {
       showSnackBar(context, 'Email is required');
+      return;
+    }
+    if (phoneController.text.isEmpty) {
+      showSnackBar(context, 'Phone Number is required');
       return;
     }
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
@@ -98,6 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           'Please read and accept the Privacy Policy and Terms to proceed');
       return;
     }
+
     showDialog(
         context: context,
         builder: (context) {
@@ -107,18 +151,76 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           );
         });
+
     try {
-      final res = await supabase.auth.signUp(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-      if (mounted) {
-        Navigator.pop(context);
-        Navigator.pushNamed(
-          context,
-          AddPhoneScreen.routeName,
-          arguments: res,
-        );
-        showSnackBar(context, "Please check your email to verify your account");
+      String phoneNumber =
+          UtilFormatter.formatPhoneNumber(phoneController.text.trim());
+      //check if account with that phone number exists in the database before proceeding
+      final phoneCheckResponse = await supabase
+          .from('users')
+          .select('id')
+          .eq('phone', phoneNumber)
+          .maybeSingle();
+
+      if (phoneCheckResponse == null) {
+        if (mounted) {
+          final res = await supabase.auth.signUp(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim());
+
+          if (res.user == null) {
+            if (mounted) {
+              Navigator.pop(context);
+              showSnackBar(context, 'Sign Up Failed! Please Retry Later');
+              return;
+            }
+          }
+
+          String? imageUrl;
+          if (_imageSelection != null) {
+            // Upload image to Supabase storage
+            final filePath = '${res.user!.id}/profile.png';
+            final uploadResponse = await supabase.storage
+                .from('profiles')
+                .uploadBinary(filePath, _imageSelection!);
+
+            if (uploadResponse.isNotEmpty) {
+              // Get the URL of the uploaded image
+              imageUrl =
+                  supabase.storage.from('profiles').getPublicUrl(filePath);
+            } else {
+              // Handle storage upload error
+              showSnackBar(context, 'Failed to upload image');
+            }
+          }
+
+          // Prepare user data
+          final userData = {
+            'id': res.user!.id,
+            'name': nameController.text.trim(),
+            'email': emailController.text.trim(),
+            'phone': phoneNumber,
+            'profile_img': imageUrl ??
+                'https://ebplsmqddssernqhxabw.supabase.co/storage/v1/object/public/profiles/default-prof-img.png?t=2024-05-20T18%3A55%3A54.167Z',
+            'updated_at': DateTime.now().toIso8601String(),
+          };
+
+          // Insert user data into the database
+          await supabase.from('users').update(userData).eq('id', res.user!.id);
+
+          if (mounted) {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, VerifyEmailScreen.routeName);
+            showSnackBar(
+                context, "Please Check Your Email to Verify Your Account");
+          }
+        }
+      } else if (phoneCheckResponse.isNotEmpty) {
+        if (mounted) {
+          Navigator.pop(context);
+          showSnackBar(context, 'Phone number is already registered');
+          return;
+        }
       }
     } on PostgrestException catch (e) {
       if (mounted) {
@@ -218,7 +320,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextStyle(
                   fontSize: SizeConfig.screenHeight * 0.03,
                   fontWeight: FontWeight.bold,
-                  color: kOrangeColor,
+                  color: Colors.black54,
                 ),
               ),
               SizedBox(
@@ -235,6 +337,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               AuthInput(
                 controller: emailController,
                 hintText: 'Enter Your Email',
+                obscureText: false,
+              ),
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.02,
+              ),
+              AuthInput(
+                controller: phoneController,
+                hintText: 'Enter your Phone Number',
                 obscureText: false,
               ),
               SizedBox(
@@ -271,7 +381,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.02),
                       child: const Text(
-                        "Or Continue With",
+                        "Or",
                         style: TextStyle(fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -298,7 +408,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                         color: Colors.transparent,
-                        border: Border.all(color: kOrangeColor, width: 3),
+                        border: Border.all(color: kPrimaryColor, width: 3),
                         borderRadius: BorderRadius.circular(20)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -308,7 +418,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: SizeConfig.screenHeight * 0.028),
                         const SizedBox(width: 10),
                         const Text(
-                          "Sign In With Google",
+                          "Sign Up With Google",
                           style: TextStyle(fontWeight: FontWeight.w400),
                           textAlign: TextAlign.center,
                         ),

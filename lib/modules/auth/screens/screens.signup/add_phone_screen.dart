@@ -1,13 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:grupchat/main.dart';
+import 'package:grupchat/models/user.dart';
+import 'package:grupchat/modules/app/screens/widgets/pools/non_bordered_button.dart';
+import 'package:grupchat/modules/auth/screens/widgets/auth_input_field.dart';
+import 'package:grupchat/services/auth_service.dart';
+import 'package:grupchat/utils/formatters/formatter.dart';
+import 'package:grupchat/widgets/navbar.dart';
+import 'package:grupchat/widgets/show_snackbar.dart';
 
-class AddPhoneScreen extends StatelessWidget {
+class AddPhoneScreen extends StatefulWidget {
   static const String routeName = '/add-phone';
-  const AddPhoneScreen({super.key});
+  final GoogleSignInAccount? user;
+  const AddPhoneScreen({super.key, this.user});
+
+  @override
+  State<AddPhoneScreen> createState() => _AddPhoneScreenState();
+}
+
+class _AddPhoneScreenState extends State<AddPhoneScreen> {
+  AuthService authService = AuthService();
+  final phoneController = TextEditingController();
+
+  Future<void> updateUserNumber() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        });
+    try {
+      //Google User
+      if (widget.user != null) {
+        String phoneNumber =
+            UtilFormatter.formatPhoneNumber(phoneController.text.trim());
+        final userData = {
+          'id': supabase.auth.currentUser!.id,
+          'email': widget.user!.email,
+          'name': widget.user!.displayName,
+          'phone': phoneNumber,
+          'profile_img': widget.user!.photoUrl,
+        };
+
+        // Insert user data into the database
+        await supabase
+            .from('users')
+            .update(userData)
+            .eq('id', supabase.auth.currentUser!.id);
+
+        if (mounted) {
+          Navigator.pop(context);
+          Navigator.pushNamedAndRemoveUntil(
+              context, HomeView.routeName, (route) => false);
+        }
+      } else {
+        final UserModel user =
+            await authService.getUserDetails(supabase.auth.currentUser!.id);
+        String phoneNumber =
+            UtilFormatter.formatPhoneNumber(phoneController.text.trim());
+        final userData = {
+          'id': supabase.auth.currentUser!.id,
+          'email': user.email,
+          'phone': phoneNumber,
+        };
+
+        // Insert user data into the database
+        await supabase.from('users').upsert(userData);
+
+        if (mounted) {
+          Navigator.pop(context);
+          showSnackBar(context, 'Successfully Updated Phone Number!');
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        showSnackBar(context, 'An Error Occurred, Please Try Again Later');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: null,
         title: const Text('Add An M-Pesa Phone Number'),
       ),
       body: Padding(
@@ -16,18 +95,12 @@ class AddPhoneScreen extends StatelessWidget {
           children: [
             const Text('Add your phone number to continue'),
             const SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'Phone Number',
-              ),
-            ),
+            AuthInput(
+                controller: phoneController,
+                hintText: '07XXXXXXXX',
+                obscureText: false),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/add-phone-otp');
-              },
-              child: const Text('Continue'),
-            ),
+            NonBorderedButton(onTap: updateUserNumber, text: 'Add Phone Number')
           ],
         ),
       ),

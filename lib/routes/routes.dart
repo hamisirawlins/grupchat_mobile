@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grupchat/modules/app/screens/screens.pools/create_pool.dart';
 import 'package:grupchat/modules/app/screens/screens.pools/pool_details.dart';
 import 'package:grupchat/modules/app/screens/screens.pools/pool_members.dart';
@@ -20,7 +19,14 @@ final Map<String, WidgetBuilder> appRoutes = {
   HomeView.routeName: (context) => const HomeView(),
   LoginAndRegisterView.routeName: (context) => const LoginAndRegisterView(),
   SignUpScreen.routeName: (context) => const SignUpScreen(),
-  AddPhoneScreen.routeName: (context) => const AddPhoneScreen(),
+  AddPhoneScreen.routeName: (context) {
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args is GoogleSignInAccount) {
+      return AddPhoneScreen(user: args);
+    } else {
+      return const AddPhoneScreen();
+    }
+  },
   VerifyEmailScreen.routeName: (context) => const VerifyEmailScreen(),
   SuccessScreen.routeName: (context) => const SuccessScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),

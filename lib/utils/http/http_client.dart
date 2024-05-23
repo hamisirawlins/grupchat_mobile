@@ -25,7 +25,7 @@ class HttpUtility {
       body: json.encode(body),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': token,
       },
     );
     return _handleResponse(response);
@@ -39,7 +39,7 @@ class HttpUtility {
       body: json.encode(body),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
+        'Authorization': token,
       },
     );
     return _handleResponse(response);
@@ -56,7 +56,7 @@ class HttpUtility {
 
   // _handleResponse
   static Map<String, dynamic> _handleResponse(http.Response response) {
-    if (response.statusCode == 200) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       return json.decode(response.body);
     } else {
       throw Exception('Failed to load: ${response.statusCode}');

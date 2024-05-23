@@ -43,7 +43,7 @@ class PoolCardsHorizontal extends StatelessWidget {
                   height: SizeConfig.screenHeight * 0.16,
                   width: SizeConfig.screenHeight * 0.28,
                   decoration: BoxDecoration(
-                    color: kSecondaryColor,
+                    color: kPrimaryColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -51,7 +51,7 @@ class PoolCardsHorizontal extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: kPrimaryColor,
+                            color: kSecondaryColor,
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: const Icon(

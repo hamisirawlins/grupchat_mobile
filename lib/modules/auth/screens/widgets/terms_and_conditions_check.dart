@@ -27,7 +27,7 @@ class _TermsAndConditionsCheckState extends State<TermsAndConditionsCheck> {
             height: 24,
             child: Checkbox(
                 checkColor: Colors.white,
-                activeColor: kOrangeColor,
+                activeColor: kPrimaryColor,
                 value: isChecked,
                 onChanged: (value) {
                   setState(() {

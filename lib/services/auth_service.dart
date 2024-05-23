@@ -6,9 +6,8 @@ import 'package:grupchat/utils/http/http_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
-  final token = supabase.auth.currentSession!.accessToken;
-
   Future<UserModel> getUserDetails(String userId) async {
+    final token = supabase.auth.currentSession!.accessToken;
     final response = await HttpUtility.get('admin/users/$userId', token);
     if (response.containsKey('id')) {
       final jsonData = response;
@@ -18,8 +17,7 @@ class AuthService {
     }
   }
 
-  Future<String> signInWithGoogle() async {
-    String res = 'failed';
+  Future<GoogleSignInAccount?> signInWithGoogle() async {
     try {
       String iosClient = dotenv.env['IOS_CLIENT'] ?? '';
       String webClient = dotenv.env['WEB_CLIENT'] ?? '';
@@ -43,10 +41,10 @@ class AuthService {
         idToken: idToken,
         accessToken: accessToken,
       );
-      res = 'Success';
-      return res;
+
+      return googleUser;
     } catch (e) {
-      return res;
+      return null;
     }
   }
 }

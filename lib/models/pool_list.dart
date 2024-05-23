@@ -5,7 +5,7 @@ class PoolListItem {
   int targetAmount;
   String type;
   String description;
-  String imageUrl;
+  String? imageUrl;
   String endDate;
   String createdAt;
   bool archived;
@@ -20,7 +20,7 @@ class PoolListItem {
     required this.targetAmount,
     required this.type,
     required this.description,
-    required this.imageUrl,
+    this.imageUrl,
     required this.endDate,
     required this.createdAt,
     required this.archived,

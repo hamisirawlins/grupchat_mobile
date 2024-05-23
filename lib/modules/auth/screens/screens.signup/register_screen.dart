@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grupchat/services/auth_service.dart';
 import 'package:grupchat/modules/auth/screens/screens.onboarding/verify_email.dart';
 import 'package:grupchat/modules/auth/screens/widgets/terms_and_conditions_check.dart';
@@ -103,13 +104,12 @@ class _LoginScreenState extends State<RegisterScreen> {
   }
 
   void googleSignIn() async {
-    String response = await AuthService().signInWithGoogle();
+    GoogleSignInAccount? response = await AuthService().signInWithGoogle();
     if (mounted) {
-      if (response == 'failed') {
-        showSnackBar(
-            context, 'Failed to sign in with Google, Please try again later.');
+      if (response == null) {
+        showSnackBar(context, 'Google Sign In Failed! Please Retry Later');
       } else {
-        showSnackBar(context, "Successfully Logged In!");
+        showSnackBar(context, "Success!");
       }
     }
   }

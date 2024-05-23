@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:grupchat/main.dart';
+import 'package:grupchat/models/deposit_request.dart';
 import 'package:grupchat/models/pool.dart';
+import 'package:grupchat/models/pool_create.dart';
 import 'package:grupchat/models/pool_list.dart';
 import 'package:grupchat/models/pool_members.dart';
 import 'package:grupchat/models/transaction.dart';
@@ -60,7 +64,7 @@ class DataService {
     }
   }
 
-  Future<void> depositToPool(String poolId, dynamic request) async {
+  Future<void> depositToPool(String poolId, DepositRequest request) async {
     final response = await HttpUtility.post(
         'pools/$poolId/deposit', request.toJson(), token);
     if (response.containsKey('message')) {
@@ -70,10 +74,10 @@ class DataService {
     }
   }
 
-  Future<void> createPool(Pool pool) async {
+  Future<dynamic> createPool(PoolCreate pool) async {
     final response = await HttpUtility.post('pools', pool.toJson(), token);
-    if (response.containsKey('message')) {
-      return;
+    if (response.containsKey('pool')) {
+      return response['pool'];
     } else {
       throw Exception('Failed to create pool: ${response['error']}');
     }

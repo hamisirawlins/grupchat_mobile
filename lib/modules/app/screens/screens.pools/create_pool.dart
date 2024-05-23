@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:grupchat/models/pool_create.dart';
+import 'package:grupchat/modules/app/screens/screens.pools/pool_details.dart';
 import 'package:grupchat/modules/app/screens/widgets/pools/non_bordered_button.dart';
+import 'package:grupchat/services/data_service.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:grupchat/widgets/show_snackbar.dart';
+import 'package:intl/intl.dart';
 
 class CreatePool extends StatefulWidget {
   static const String routeName = '/create-pool';
@@ -13,6 +17,7 @@ class CreatePool extends StatefulWidget {
 }
 
 class _CreatePoolState extends State<CreatePool> {
+  final DataService _dataService = DataService();
   DateTime selectedDate = DateTime.now();
 
   final _nameController = TextEditingController();
@@ -21,12 +26,35 @@ class _CreatePoolState extends State<CreatePool> {
 
   Future<void> _createPool() async {
     // Create a new pool
-    print({
-      'name': _nameController.text.trim(),
-      'description': _descriptionController.text.trim(),
-      'targetAmount': _targetAmountController.text.trim(),
-      'endDate': selectedDate.toIso8601String(),
-    });
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        });
+    try {
+      final pool = await _dataService.createPool(PoolCreate(
+        name: _nameController.text,
+        targetAmount: double.parse(_targetAmountController.text),
+        type: "Group",
+        description: _descriptionController.text,
+        endDate: selectedDate,
+      ));
+      if (mounted) {
+        Navigator.pop(context);
+        showSnackBar(context, 'Success!');
+        Navigator.pushNamed(context, PoolDetails.routeName,
+            arguments: pool['pool_id']);
+      }
+    } catch (e) {
+      if (mounted) {
+        Navigator.pop(context);
+        showSnackBar(context, e.toString());
+      }
+    }
   }
 
   @override
@@ -57,7 +85,7 @@ class _CreatePoolState extends State<CreatePool> {
               TextField(
                 controller: _descriptionController,
                 decoration: const InputDecoration(
-                  labelText: "Pool Description",
+                  labelText: "A Short Description",
                   labelStyle: TextStyle(color: Colors.black45, fontSize: 20),
                   border: InputBorder.none,
                 ),

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:grupchat/models/pool_members.dart';
 import 'package:grupchat/services/data_service.dart';
@@ -83,25 +84,44 @@ class _PoolMembersState extends State<PoolMembers> {
                         member.name != null
                             ? Text(member.name!)
                             : Text(member.email),
-                        GestureDetector(
-                          onTap: () {
-                            _removeMember(member.userId);
-                          },
-                          child: Chip(
-                            backgroundColor: Colors.red[100],
-                            side: const BorderSide(color: Colors.transparent),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5)),
-                            label: const Text(
-                              'Remove',
-                              style: TextStyle(color: Colors.red),
+                        if (member.role != 'Admin')
+                          GestureDetector(
+                            onTap: () {
+                              _removeMember(member.userId);
+                            },
+                            child: Chip(
+                              backgroundColor: Colors.red[100],
+                              side: const BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              label: const Text(
+                                'Remove',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              avatar: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
                             ),
-                            avatar: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                          ),
-                        )
+                          )
+                        else
+                          GestureDetector(
+                              onTap: () {
+                                _removeMember(member.userId);
+                              },
+                              child: Chip(
+                                backgroundColor: Colors.grey[100],
+                                side:
+                                    const BorderSide(color: Colors.transparent),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                label: Text(
+                                  'Admin',
+                                  style: TextStyle(color: kPrimaryColor),
+                                ),
+                              )),
                       ],
                     ));
               },
