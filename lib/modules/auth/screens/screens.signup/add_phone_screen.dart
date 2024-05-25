@@ -77,6 +77,7 @@ class _AddPhoneScreenState extends State<AddPhoneScreen> {
       }
     } catch (e) {
       if (mounted) {
+        Navigator.pop(context);
         showSnackBar(context, 'An Error Occurred, Please Try Again Later');
       }
     }

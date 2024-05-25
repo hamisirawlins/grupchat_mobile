@@ -55,14 +55,14 @@ class DataService {
     }
   }
 
-  Future<List<PoolMember>> addMember(String poolId, String? identifier) async {
+  Future<void> addMember(String poolId, String? identifier) async {
     final response = await HttpUtility.post(
         'pools/$poolId/members', {'identifier': identifier}, token);
-    if (response.containsKey('data')) {
-      final jsonData = response['data'] as List;
-      return jsonData.map((json) => PoolMember.fromJson(json)).toList();
+
+    if (response.containsKey('message')) {
+      return response['message'];
     } else {
-      throw Exception('Failed to load members: ${response['error']}');
+      throw Exception('Failed to update: ${response['error']}');
     }
   }
 

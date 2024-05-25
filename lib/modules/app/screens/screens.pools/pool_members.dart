@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:grupchat/main.dart';
 import 'package:grupchat/models/pool_members.dart';
 import 'package:grupchat/services/data_service.dart';
 import 'package:grupchat/utils/constants/colors.dart';
@@ -66,8 +67,8 @@ class _PoolMembersState extends State<PoolMembers> {
           );
         });
     try {
-      final newMembers =
-          await _dataService.addMember(widget.poolId, addMemberController.text);
+      await _dataService.addMember(widget.poolId, addMemberController.text);
+      final newMembers = await _dataService.getPoolMembers(widget.poolId);
       if (mounted) {
         addMemberController.clear();
         Navigator.pop(context);
@@ -176,7 +177,8 @@ class _PoolMembersState extends State<PoolMembers> {
                         member.name != null
                             ? Text(member.name!)
                             : Text(member.email),
-                        if (member.role != 'Admin')
+                        if (member.role != 'Admin' &&
+                            member.userId != supabase.auth.currentUser!.id)
                           GestureDetector(
                             onTap: () {
                               _removeMember(member.userId);
@@ -197,7 +199,28 @@ class _PoolMembersState extends State<PoolMembers> {
                               ),
                             ),
                           )
-                        else
+                        else if (member.userId == supabase.auth.currentUser!.id)
+                          GestureDetector(
+                            onTap: () {
+                              _removeMember(member.userId);
+                            },
+                            child: Chip(
+                              backgroundColor: Colors.red[100],
+                              side: const BorderSide(color: Colors.transparent),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              label: const Text(
+                                'Exit',
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              avatar: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            ),
+                          )
+                        else if (member.role == 'Admin')
                           GestureDetector(
                               onTap: () {
                                 _removeMember(member.userId);
