@@ -11,7 +11,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   static const String routeName = '/verify-email';
-  const VerifyEmailScreen({super.key});
+  final String email;
+  const VerifyEmailScreen({super.key, required this.email});
 
   @override
   State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
@@ -19,8 +20,6 @@ class VerifyEmailScreen extends StatefulWidget {
 
 class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   void resendEmail() async {
-    // read arguments passed by pushNamed
-    final email = ModalRoute.of(context)!.settings.arguments as String;
     // send email verification link using supabase
     try {
       showDialog(
@@ -32,11 +31,11 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
               ),
             );
           });
-      await supabase.auth.resend(type: OtpType.signup, email: email);
+      await supabase.auth.resend(type: OtpType.signup, email: widget.email);
       if (mounted) {
         Navigator.pop(context);
-        showSnackBar(
-            context, "Email Verification link resent successfully to $email");
+        showSnackBar(context,
+            "Email Verification link resent successfully to ${widget.email}");
       }
     } catch (e) {
       if (mounted) {

@@ -7,6 +7,7 @@ import 'package:grupchat/models/pool_create.dart';
 import 'package:grupchat/models/pool_list.dart';
 import 'package:grupchat/models/pool_members.dart';
 import 'package:grupchat/models/transaction.dart';
+import 'package:grupchat/models/withdraw_request.dart';
 import 'package:grupchat/utils/http/http_client.dart';
 
 class DataService {
@@ -54,7 +55,18 @@ class DataService {
     }
   }
 
-  Future<void> withdrawFromPool(String poolId, dynamic request) async {
+  Future<List<PoolMember>> addMember(String poolId, String? identifier) async {
+    final response = await HttpUtility.post(
+        'pools/$poolId/members', {'identifier': identifier}, token);
+    if (response.containsKey('data')) {
+      final jsonData = response['data'] as List;
+      return jsonData.map((json) => PoolMember.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load members: ${response['error']}');
+    }
+  }
+
+  Future<void> withdrawFromPool(String poolId, WithdrawRequest request) async {
     final response = await HttpUtility.post(
         'pools/$poolId/withdraw', request.toJson(), token);
     if (response.containsKey('message')) {

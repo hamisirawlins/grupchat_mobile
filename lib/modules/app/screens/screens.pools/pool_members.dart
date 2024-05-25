@@ -19,6 +19,7 @@ class _PoolMembersState extends State<PoolMembers> {
   final DataService _dataService = DataService();
   bool _isLoading = false;
   List<PoolMember> _members = [];
+  final addMemberController = TextEditingController();
 
   @override
   void initState() {
@@ -44,15 +45,43 @@ class _PoolMembersState extends State<PoolMembers> {
 
   Future<void> _removeMember(String memberId) async {
     try {
-      setState(() {
-        _isLoading = true;
-      });
-
       await _dataService.removeMember(widget.poolId, memberId);
-      showSnackBar(context, 'Member removed successfully!');
+      if (mounted) {
+        showSnackBar(context, 'Member removed successfully!');
+      }
       await _loadPoolMembers();
     } catch (e) {
       if (mounted) showSnackBar(context, e.toString());
+    }
+  }
+
+  Future<void> addMember() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        });
+    try {
+      final newMembers =
+          await _dataService.addMember(widget.poolId, addMemberController.text);
+      if (mounted) {
+        addMemberController.clear();
+        Navigator.pop(context);
+        showSnackBar(context, 'Member added successfully!');
+        setState(() {
+          _members = newMembers;
+        });
+      }
+    } catch (e) {
+      addMemberController.clear();
+      if (mounted) {
+        Navigator.pop(context);
+        showSnackBar(context, e.toString());
+      }
     }
   }
 
@@ -60,10 +89,73 @@ class _PoolMembersState extends State<PoolMembers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Or Remove'),
+        title: const Text('Pool Members'),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: kPrimaryColor,
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  backgroundColor: Colors.blue[200],
+                  title: const Text('Add A New Member'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        style: const TextStyle(color: Colors.white),
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Email or Phone Number',
+                          hintStyle: TextStyle(color: Colors.white),
+                        ),
+                        controller: addMemberController,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await addMember();
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Add',
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              });
+        },
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'Add Member',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
       body: _isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : ListView.builder(

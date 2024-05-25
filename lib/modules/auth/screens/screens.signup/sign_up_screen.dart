@@ -163,57 +163,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
           .maybeSingle();
 
       if (phoneCheckResponse == null) {
-        if (mounted) {
-          final res = await supabase.auth.signUp(
-              email: emailController.text.trim(),
-              password: passwordController.text.trim());
+        final res = await supabase.auth.signUp(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim());
 
-          if (res.user == null) {
+        if (res.user == null) {
+          if (mounted) {
+            Navigator.pop(context);
+            showSnackBar(context, 'Sign Up Failed! Please Retry Later');
+            return;
+          }
+        }
+
+        String? imageUrl;
+        if (_imageSelection != null) {
+          // Upload image to Supabase storage
+          final filePath = '${res.user!.id}/profile.png';
+          final uploadResponse = await supabase.storage
+              .from('profiles')
+              .uploadBinary(filePath, _imageSelection!);
+
+          if (uploadResponse.isNotEmpty) {
+            // Get the URL of the uploaded image
+            imageUrl = supabase.storage.from('profiles').getPublicUrl(filePath);
+          } else {
+            // Handle storage upload error
             if (mounted) {
               Navigator.pop(context);
-              showSnackBar(context, 'Sign Up Failed! Please Retry Later');
-              return;
-            }
-          }
-
-          String? imageUrl;
-          if (_imageSelection != null) {
-            // Upload image to Supabase storage
-            final filePath = '${res.user!.id}/profile.png';
-            final uploadResponse = await supabase.storage
-                .from('profiles')
-                .uploadBinary(filePath, _imageSelection!);
-
-            if (uploadResponse.isNotEmpty) {
-              // Get the URL of the uploaded image
-              imageUrl =
-                  supabase.storage.from('profiles').getPublicUrl(filePath);
-            } else {
-              // Handle storage upload error
               showSnackBar(context, 'Failed to upload image');
             }
           }
+        }
 
-          // Prepare user data
-          final userData = {
-            'id': res.user!.id,
-            'name': nameController.text.trim(),
-            'email': emailController.text.trim(),
-            'phone': phoneNumber,
-            'profile_img': imageUrl ??
-                'https://ebplsmqddssernqhxabw.supabase.co/storage/v1/object/public/profiles/default-prof-img.png?t=2024-05-20T18%3A55%3A54.167Z',
-            'updated_at': DateTime.now().toIso8601String(),
-          };
+        // Prepare user data
+        final userData = {
+          'id': res.user!.id,
+          'name': nameController.text.trim(),
+          'email': emailController.text.trim(),
+          'phone': phoneNumber,
+          'profile_img': imageUrl ??
+              'https://ebplsmqddssernqhxabw.supabase.co/storage/v1/object/public/profiles/default-prof-img.png?t=2024-05-20T18%3A55%3A54.167Z',
+          'updated_at': DateTime.now().toIso8601String(),
+        };
 
-          // Insert user data into the database
-          await supabase.from('users').update(userData).eq('id', res.user!.id);
+        // Insert user data into the database
+        await supabase
+            .from('users')
+            .upsert(userData, onConflict: 'id')
+            .select();
+   
 
-          if (mounted) {
-            Navigator.pop(context);
-            Navigator.pushNamed(context, VerifyEmailScreen.routeName);
-            showSnackBar(
-                context, "Please Check Your Email to Verify Your Account");
-          }
+        if (mounted) {
+          Navigator.pop(context);
+          Navigator.pushNamed(
+            context,
+            VerifyEmailScreen.routeName,
+            arguments: emailController.text.trim(),
+          );
+          showSnackBar(
+              context, "Please Check Your Email to Verify Your Account");
         }
       } else if (phoneCheckResponse.isNotEmpty) {
         if (mounted) {

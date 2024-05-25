@@ -33,7 +33,7 @@ class _AddPhoneScreenState extends State<AddPhoneScreen> {
           );
         });
     try {
-      //Google User
+      //Google User Registration
       if (widget.user != null) {
         String phoneNumber =
             UtilFormatter.formatPhoneNumber(phoneController.text.trim());
@@ -68,7 +68,7 @@ class _AddPhoneScreenState extends State<AddPhoneScreen> {
         };
 
         // Insert user data into the database
-        await supabase.from('users').upsert(userData);
+        await supabase.from('users').upsert(userData, ignoreDuplicates: false);
 
         if (mounted) {
           Navigator.pop(context);

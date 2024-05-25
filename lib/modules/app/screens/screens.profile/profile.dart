@@ -4,10 +4,11 @@ import 'package:grupchat/modules/app/screens/widgets/profile/profile_header.dart
 import 'package:grupchat/modules/app/screens/widgets/profile/settings_tile.dart';
 import 'package:grupchat/modules/auth/screens/screens.signup/add_phone_screen.dart';
 import 'package:grupchat/services/auth_service.dart';
-import 'package:grupchat/services/data_service.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:grupchat/main.dart';
 import 'package:grupchat/widgets/show_snackbar.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
@@ -44,7 +45,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: SingleChildScrollView(
       child: Column(
         children: [
-          const ProfileHeader(),
+          _user != null
+              ? ProfileHeader(user: _user!)
+              : Container(
+                  height: SizeConfig.screenHeight * 0.22,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        kPrimaryColor,
+                        Colors.blue.shade900,
+                      ],
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: LoadingAnimationWidget.dotsTriangle(
+                      color: Colors.white, size: SizeConfig.screenWidth * 0.1),
+                ),
           Padding(
             padding: EdgeInsets.symmetric(
               vertical: SizeConfig.screenHeight * 0.02,

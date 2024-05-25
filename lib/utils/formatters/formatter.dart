@@ -1,3 +1,4 @@
+import 'package:grupchat/models/pool_list.dart';
 import 'package:intl/intl.dart';
 
 class UtilFormatter {
@@ -12,6 +13,10 @@ class UtilFormatter {
       return "254${number.substring(4)}";
     }
     return number;
+  }
+
+  static String reverseFormatPhoneNumber(String number) {
+    return "0${number.substring(3)}";
   }
 
   static String formatAmount(var amount) {
@@ -31,5 +36,9 @@ class UtilFormatter {
     final formattedDate =
         DateFormat('dd MMM, hh:mm a').format(DateTime.parse(date));
     return formattedDate;
+  }
+
+  static double getPoolProgress(PoolListItem pool) {
+    return pool.insights.totalDeposits / pool.targetAmount;
   }
 }

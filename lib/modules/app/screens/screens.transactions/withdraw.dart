@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:grupchat/models/pool_list.dart';
+import 'package:grupchat/models/withdraw_request.dart';
 import 'package:grupchat/services/data_service.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:grupchat/widgets/show_snackbar.dart';
@@ -83,7 +84,7 @@ class _WithdrawState extends State<Withdraw> {
         _currentStep += 1;
       });
     } else {
-      print("Done");
+      _withdraw();
     }
   }
 
@@ -94,6 +95,58 @@ class _WithdrawState extends State<Withdraw> {
       });
     } else {
       Navigator.of(context).pop();
+    }
+  }
+
+  Future<void> _withdraw() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        });
+    try {
+      if (_selectedPool == null) {
+        showSnackBar(context, 'Please Select A Pool Source');
+        return;
+      }
+
+      if (_selectedContact == null) {
+        showSnackBar(context, 'Please Select A Recipient');
+        return;
+      }
+
+      if (_amountController.text.isEmpty) {
+        showSnackBar(context, 'Please Enter An Amount');
+        return;
+      }
+
+      if (double.parse(_amountController.text) >
+          double.parse(_calculateBalance(_selectedPool!))) {
+        showSnackBar(context, 'Insufficient Balance');
+        return;
+      }
+
+      final request = WithdrawRequest(
+        poolId: _selectedPool!.poolId,
+        amount: double.parse(_amountController.text),
+        phone: _selectedContact!.phones.first.number,
+      );
+
+      await _dataService.withdrawFromPool(_selectedPool!.poolId, request);
+      if (mounted) {
+        Navigator.of(context).pop();
+        showSnackBar(context, 'Approvals Requested Successfully');
+      }
+    } catch (e) {
+      if (mounted) {
+        Navigator.of(context).pop();
+        showSnackBar(
+            context, 'Failed To Request Withdrawal, Please Try Again Later');
+      }
     }
   }
 
@@ -233,6 +286,17 @@ class _WithdrawState extends State<Withdraw> {
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
                             Text('${_selectedPool?.name}'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Pool Balance: ',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            Text(_selectedPool != null
+                                ? _calculateBalance(_selectedPool!)
+                                : '0'),
                           ],
                         ),
                         Row(
