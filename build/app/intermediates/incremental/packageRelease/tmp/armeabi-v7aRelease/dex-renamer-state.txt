@@ -1,0 +1,4 @@
+#Sun May 26 13:30:48 EAT 2024
+base.0=/Users/rawlins/Desktop/data module/grupchat_mobile/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

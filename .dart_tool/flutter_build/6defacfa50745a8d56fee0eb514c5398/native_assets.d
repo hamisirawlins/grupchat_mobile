@@ -1,0 +1,1 @@
+ /Users/rawlins/Desktop/data\ module/grupchat_mobile/.dart_tool/flutter_build/6defacfa50745a8d56fee0eb514c5398/native_assets.yaml: 

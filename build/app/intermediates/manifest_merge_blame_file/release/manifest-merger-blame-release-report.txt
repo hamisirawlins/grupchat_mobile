@@ -1,0 +1,273 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.grupchat_app"
+4    android:versionCode="4001"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.READ_CONTACTS" />
+11-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:2:4-70
+11-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:2:21-68
+12    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+12-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:3:4-71
+12-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:3:21-69
+13    <!--
+14         Required to query activities that can process text, see:
+15         https://developer.android.com/training/package-visibility?hl=en and
+16         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+17
+18         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+19    -->
+20    <queries>
+20-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:40:5-45:15
+21        <intent>
+21-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:41:9-44:18
+22            <action android:name="android.intent.action.PROCESS_TEXT" />
+22-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:42:13-72
+22-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:42:21-70
+23
+24            <data android:mimeType="text/plain" />
+24-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:43:13-50
+24-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:43:19-48
+25        </intent>
+26    </queries>
+27
+28    <uses-permission android:name="android.permission.INTERNET" />
+28-->[:google_sign_in_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/google_sign_in_android/intermediates/merged_manifest/release/AndroidManifest.xml:9:5-67
+28-->[:google_sign_in_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/google_sign_in_android/intermediates/merged_manifest/release/AndroidManifest.xml:9:22-64
+29
+30    <permission
+30-->[androidx.core:core:1.10.1] /Users/rawlins/.gradle/caches/transforms-3/0b9c903fef8d2eb2a269c36999ef4a74/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+31        android:name="com.example.grupchat_app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+31-->[androidx.core:core:1.10.1] /Users/rawlins/.gradle/caches/transforms-3/0b9c903fef8d2eb2a269c36999ef4a74/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+32        android:protectionLevel="signature" />
+32-->[androidx.core:core:1.10.1] /Users/rawlins/.gradle/caches/transforms-3/0b9c903fef8d2eb2a269c36999ef4a74/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+33
+34    <uses-permission android:name="com.example.grupchat_app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+34-->[androidx.core:core:1.10.1] /Users/rawlins/.gradle/caches/transforms-3/0b9c903fef8d2eb2a269c36999ef4a74/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+34-->[androidx.core:core:1.10.1] /Users/rawlins/.gradle/caches/transforms-3/0b9c903fef8d2eb2a269c36999ef4a74/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+35
+36    <application
+37        android:name="android.app.Application"
+37-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:6:9-42
+38        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+38-->[androidx.core:core:1.10.1] /Users/rawlins/.gradle/caches/transforms-3/0b9c903fef8d2eb2a269c36999ef4a74/transformed/core-1.10.1/AndroidManifest.xml:28:18-86
+39        android:icon="@mipmap/ic_launcher"
+39-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:7:9-43
+40        android:label="grupchat" >
+40-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:5:9-33
+41        <activity
+41-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:8:9-28:20
+42            android:name="com.example.grupchat_app.MainActivity"
+42-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:9:13-41
+43            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+43-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:13:13-163
+44            android:exported="true"
+44-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:10:13-36
+45            android:hardwareAccelerated="true"
+45-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:14:13-47
+46            android:launchMode="singleTop"
+46-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:11:13-43
+47            android:theme="@style/LaunchTheme"
+47-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:12:13-47
+48            android:windowSoftInputMode="adjustResize" >
+48-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:15:13-55
+49
+50            <!--
+51                 Specifies an Android theme to apply to this Activity as soon as
+52                 the Android process has started. This theme is visible to the user
+53                 while the Flutter UI initializes. After that, this theme continues
+54                 to determine the Window background behind the Flutter UI.
+55            -->
+56            <meta-data
+56-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:20:13-23:17
+57                android:name="io.flutter.embedding.android.NormalTheme"
+57-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:21:15-70
+58                android:resource="@style/NormalTheme" />
+58-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:22:15-52
+59
+60            <intent-filter>
+60-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:24:13-27:29
+61                <action android:name="android.intent.action.MAIN" />
+61-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:25:17-68
+61-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:25:25-66
+62
+63                <category android:name="android.intent.category.LAUNCHER" />
+63-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:26:17-76
+63-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:26:27-74
+64            </intent-filter>
+65        </activity>
+66        <!--
+67             Don't delete the meta-data below.
+68             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+69        -->
+70        <meta-data
+70-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:31:9-33:33
+71            android:name="flutterEmbedding"
+71-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:32:13-44
+72            android:value="2" />
+72-->/Users/rawlins/Desktop/data module/grupchat_mobile/android/app/src/main/AndroidManifest.xml:33:13-30
+73
+74        <provider
+74-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:11:9-19:20
+75            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+75-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-82
+76            android:authorities="com.example.grupchat_app.flutter.image_provider"
+76-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-74
+77            android:exported="false"
+77-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:14:13-37
+78            android:grantUriPermissions="true" >
+78-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:15:13-47
+79            <meta-data
+79-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:16:13-18:75
+80                android:name="android.support.FILE_PROVIDER_PATHS"
+80-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:17:17-67
+81                android:resource="@xml/flutter_image_picker_file_paths" />
+81-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:18:17-72
+82        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
+83        <service
+83-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:21:9-33:19
+84            android:name="com.google.android.gms.metadata.ModuleDependencies"
+84-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:22:13-78
+85            android:enabled="false"
+85-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:23:13-36
+86            android:exported="false" >
+86-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:24:13-37
+87            <intent-filter>
+87-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:26:13-28:29
+88                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+88-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:27:17-94
+88-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:27:25-91
+89            </intent-filter>
+90
+91            <meta-data
+91-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:30:13-32:36
+92                android:name="photopicker_activity:0:required"
+92-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:31:17-63
+93                android:value="" />
+93-->[:image_picker_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/image_picker_android/intermediates/merged_manifest/release/AndroidManifest.xml:32:17-33
+94        </service>
+95
+96        <activity
+96-->[:url_launcher_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:10:9-13:74
+97            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+97-->[:url_launcher_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:11:13-74
+98            android:exported="false"
+98-->[:url_launcher_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:12:13-37
+99            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+99-->[:url_launcher_android] /Users/rawlins/Desktop/data module/grupchat_mobile/build/url_launcher_android/intermediates/merged_manifest/release/AndroidManifest.xml:13:13-71
+100        <activity
+100-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:23:9-27:75
+101            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+101-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:24:13-93
+102            android:excludeFromRecents="true"
+102-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:25:13-46
+103            android:exported="false"
+103-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:26:13-37
+104            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+104-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:27:13-72
+105        <!--
+106            Service handling Google Sign-In user revocation. For apps that do not integrate with
+107            Google Sign-In, this service will never be started.
+108        -->
+109        <service
+109-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:33:9-37:51
+110            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+110-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:34:13-89
+111            android:exported="true"
+111-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:35:13-36
+112            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+112-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:36:13-107
+113            android:visibleToInstantApps="true" />
+113-->[com.google.android.gms:play-services-auth:21.0.0] /Users/rawlins/.gradle/caches/transforms-3/a1cb5f9282e217f7e2ac7dbaa94bb3d3/transformed/jetified-play-services-auth-21.0.0/AndroidManifest.xml:37:13-48
+114
+115        <activity
+115-->[com.google.android.gms:play-services-base:18.0.1] /Users/rawlins/.gradle/caches/transforms-3/456feef7530341a2c919967cc4dde951/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:9-22:45
+116            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+116-->[com.google.android.gms:play-services-base:18.0.1] /Users/rawlins/.gradle/caches/transforms-3/456feef7530341a2c919967cc4dde951/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:20:19-85
+117            android:exported="false"
+117-->[com.google.android.gms:play-services-base:18.0.1] /Users/rawlins/.gradle/caches/transforms-3/456feef7530341a2c919967cc4dde951/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:22:19-43
+118            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+118-->[com.google.android.gms:play-services-base:18.0.1] /Users/rawlins/.gradle/caches/transforms-3/456feef7530341a2c919967cc4dde951/transformed/jetified-play-services-base-18.0.1/AndroidManifest.xml:21:19-78
+119
+120        <meta-data
+120-->[com.google.android.gms:play-services-basement:18.2.0] /Users/rawlins/.gradle/caches/transforms-3/ac75f0103db428c146f97c47712df49a/transformed/jetified-play-services-basement-18.2.0/AndroidManifest.xml:21:9-23:69
+121            android:name="com.google.android.gms.version"
+121-->[com.google.android.gms:play-services-basement:18.2.0] /Users/rawlins/.gradle/caches/transforms-3/ac75f0103db428c146f97c47712df49a/transformed/jetified-play-services-basement-18.2.0/AndroidManifest.xml:22:13-58
+122            android:value="@integer/google_play_services_version" />
+122-->[com.google.android.gms:play-services-basement:18.2.0] /Users/rawlins/.gradle/caches/transforms-3/ac75f0103db428c146f97c47712df49a/transformed/jetified-play-services-basement-18.2.0/AndroidManifest.xml:23:13-66
+123
+124        <uses-library
+124-->[androidx.window:window:1.0.0-beta04] /Users/rawlins/.gradle/caches/transforms-3/032f4dff274e516110d9363a9793a3e3/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+125            android:name="androidx.window.extensions"
+125-->[androidx.window:window:1.0.0-beta04] /Users/rawlins/.gradle/caches/transforms-3/032f4dff274e516110d9363a9793a3e3/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+126            android:required="false" />
+126-->[androidx.window:window:1.0.0-beta04] /Users/rawlins/.gradle/caches/transforms-3/032f4dff274e516110d9363a9793a3e3/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+127        <uses-library
+127-->[androidx.window:window:1.0.0-beta04] /Users/rawlins/.gradle/caches/transforms-3/032f4dff274e516110d9363a9793a3e3/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+128            android:name="androidx.window.sidecar"
+128-->[androidx.window:window:1.0.0-beta04] /Users/rawlins/.gradle/caches/transforms-3/032f4dff274e516110d9363a9793a3e3/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+129            android:required="false" />
+129-->[androidx.window:window:1.0.0-beta04] /Users/rawlins/.gradle/caches/transforms-3/032f4dff274e516110d9363a9793a3e3/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+130
+131        <provider
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:24:9-32:20
+132            android:name="androidx.startup.InitializationProvider"
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:25:13-67
+133            android:authorities="com.example.grupchat_app.androidx-startup"
+133-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:26:13-68
+134            android:exported="false" >
+134-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:27:13-37
+135            <meta-data
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+136                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+136-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+137                android:value="androidx.startup" />
+137-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+138        </provider>
+139
+140        <receiver
+140-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+141            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+142            android:directBootAware="false"
+142-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+143            android:enabled="true"
+143-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+144            android:exported="true"
+144-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+145            android:permission="android.permission.DUMP" >
+145-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+146            <intent-filter>
+146-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+147                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+147-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+147-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+148            </intent-filter>
+149            <intent-filter>
+149-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+150                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+150-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+150-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+151            </intent-filter>
+152            <intent-filter>
+152-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+153                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+153-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+153-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+154            </intent-filter>
+155            <intent-filter>
+155-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+156                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+156-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+156-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/rawlins/.gradle/caches/transforms-3/a0ecce03964d1d4dc26ffab32b08b16e/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+157            </intent-filter>
+158        </receiver>
+159    </application>
+160
+161</manifest>
