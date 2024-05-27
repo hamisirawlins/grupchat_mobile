@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:grupchat/models/pool.dart';
 import 'package:grupchat/models/pool_list.dart';
 import 'package:grupchat/modules/app/screens/widgets/home/home_header.dart';
 import 'package:grupchat/modules/app/screens/widgets/common/section_header_title.dart';

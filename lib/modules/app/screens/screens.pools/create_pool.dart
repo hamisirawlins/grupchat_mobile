@@ -6,7 +6,6 @@ import 'package:grupchat/services/data_service.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:grupchat/widgets/show_snackbar.dart';
-import 'package:intl/intl.dart';
 
 class CreatePool extends StatefulWidget {
   static const String routeName = '/create-pool';

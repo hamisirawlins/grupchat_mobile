@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:grupchat/main.dart';
 import 'package:grupchat/models/pool_members.dart';

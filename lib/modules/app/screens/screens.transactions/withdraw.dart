@@ -210,7 +210,7 @@ class _WithdrawState extends State<Withdraw> {
                 items: _contacts
                     .map((contact) => DropdownMenuItem(
                           value: contact,
-                          child: Text(contact.displayName ?? ''),
+                          child: Text(contact.displayName),
                         ))
                     .toList(),
                 onChanged: (selectedContact) {

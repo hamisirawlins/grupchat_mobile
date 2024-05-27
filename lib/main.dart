@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grupchat/modules/auth/screens/screens.onboarding/onboarding_screen.dart';
 import 'package:grupchat/widgets/navbar.dart';
-import 'package:grupchat/modules/auth/screens/screens.onboarding/auth_screen.dart';
 import 'package:grupchat/routes/routes.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';

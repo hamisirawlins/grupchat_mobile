@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:grupchat/main.dart';
 import 'package:grupchat/models/deposit_request.dart';
 import 'package:grupchat/models/pool.dart';

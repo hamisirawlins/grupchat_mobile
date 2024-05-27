@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/main.dart';
