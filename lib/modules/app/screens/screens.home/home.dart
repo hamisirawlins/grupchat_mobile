@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HomeHeader(),
+            const HomeHeader(),
             SizedBox(height: SizeConfig.screenHeight * 0.016),
             const SectionHeader(
               text: "Quick Actions",

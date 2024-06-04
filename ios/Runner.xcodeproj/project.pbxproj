@@ -17,6 +17,7 @@
 		9C74FB37D4F96D4DFFBD30A2 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70806AFFC514BEEEA7706B3C /* Pods_Runner.framework */; };
 		B65103A12BD058010073DCFC /* client_997601432860-23btjlen3oc7vtdtp4ib6q9qg46ml1a9.apps.googleusercontent.com.plist in Resources */ = {isa = PBXBuildFile; fileRef = B65103A02BD058010073DCFC /* client_997601432860-23btjlen3oc7vtdtp4ib6q9qg46ml1a9.apps.googleusercontent.com.plist */; };
 		B727ECDF4540E544914C4C57 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1D84154028DE2808247B76 /* Pods_RunnerTests.framework */; };
+		EF4BCD2516EA168714F948C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0898FE5C6BDF6A4B4363C009 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0898FE5C6BDF6A4B4363C009 /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0E1D84154028DE2808247B76 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				A89A09ECA00FEC694E6CDBC7 /* Pods */,
 				B8F97B992AE89D474C97656C /* Frameworks */,
+				0898FE5C6BDF6A4B4363C009 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -268,6 +271,7 @@
 				B65103A12BD058010073DCFC /* client_997601432860-23btjlen3oc7vtdtp4ib6q9qg46ml1a9.apps.googleusercontent.com.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+				EF4BCD2516EA168714F948C4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@ import 'package:grupchat/services/data_service.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:grupchat/utils/formatters/formatter.dart';
+import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/widgets/show_snackbar.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -98,7 +99,7 @@ class _PoolDetailsState extends State<PoolDetails> {
           IconButton(
             icon: const Icon(Icons.close_rounded),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, HomeView.routeName);
             },
           ),
         ],
@@ -176,7 +177,6 @@ class _PoolDetailsState extends State<PoolDetails> {
                     height: SizeConfig.screenHeight * 0.016,
                   ),
                   BorderedButton(
-                    poolId: _pool!.poolId,
                     onTap: () {
                       Navigator.pushNamed(context, Withdraw.routeName,
                           arguments: _pool!.poolId);

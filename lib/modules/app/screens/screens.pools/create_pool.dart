@@ -60,7 +60,7 @@ class _CreatePoolState extends State<CreatePool> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Curate A New Pool'),
+        title: const Text(''),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -69,7 +69,27 @@ class _CreatePoolState extends State<CreatePool> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Name:', style: TextStyle(color: Colors.black87)),
+              Container(
+                height: SizeConfig.screenHeight * 0.1,
+                width: SizeConfig.screenWidth,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Center(
+                  child: Text(
+                    'Create A New Pool',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: SizeConfig.screenHeight * 0.02),
+              const Text('Name:',
+                  style: TextStyle(color: Colors.black87, fontSize: 20)),
               SizedBox(height: SizeConfig.screenHeight * 0.008),
               TextField(
                 controller: _nameController,
@@ -79,24 +99,28 @@ class _CreatePoolState extends State<CreatePool> {
                   border: InputBorder.none,
                 ),
               ),
-              const Text('Description:'),
-              SizedBox(height: SizeConfig.screenHeight * 0.016),
+              SizedBox(height: SizeConfig.screenHeight * 0.02),
+              const Text(
+                'Description:',
+                style: TextStyle(fontSize: 20),
+              ),
               TextField(
                 controller: _descriptionController,
                 decoration: const InputDecoration(
                   labelText: "A Short Description",
-                  labelStyle: TextStyle(color: Colors.black45, fontSize: 20),
+                  labelStyle: TextStyle(color: Colors.black45, fontSize: 32),
                   border: InputBorder.none,
                 ),
               ),
-              const Text('Target Amount:'),
+              SizedBox(height: SizeConfig.screenHeight * 0.02),
+              const Text('Target Amount:', style: TextStyle(fontSize: 20)),
               SizedBox(height: SizeConfig.screenHeight * 0.024),
               TextField(
                 keyboardType: TextInputType.number,
                 controller: _targetAmountController,
                 decoration: const InputDecoration(
                   labelText: "Target Amount",
-                  labelStyle: TextStyle(color: Colors.black45, fontSize: 30),
+                  labelStyle: TextStyle(color: Colors.black45, fontSize: 32),
                   border: InputBorder.none,
                 ),
               ),
@@ -130,14 +154,13 @@ class _CreatePoolState extends State<CreatePool> {
                   }
                 },
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.02),
+              SizedBox(height: SizeConfig.screenHeight * 0.048),
               Center(
                 child: NonBorderedButton(
                   onTap: _createPool,
                   text: "Create Pool",
                 ),
               ),
-              SizedBox(height: SizeConfig.screenHeight * 0.02),
             ],
           ),
         ),

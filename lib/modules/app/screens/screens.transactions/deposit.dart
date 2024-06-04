@@ -3,11 +3,11 @@ import 'package:grupchat/main.dart';
 import 'package:grupchat/models/deposit_request.dart';
 import 'package:grupchat/models/pool_list.dart';
 import 'package:grupchat/models/user.dart';
+import 'package:grupchat/modules/app/screens/screens.transactions/deposit_processing.dart';
 import 'package:grupchat/services/auth_service.dart';
 import 'package:grupchat/services/data_service.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
-import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/widgets/show_snackbar.dart';
 
 class Deposit extends StatefulWidget {
@@ -72,15 +72,6 @@ class _DepositState extends State<Deposit> {
   }
 
   Future<void> _performDeposit() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          );
-        });
     try {
       if (_selectedPool == null) {
         showSnackBar(context, 'Please select a pool');
@@ -92,19 +83,16 @@ class _DepositState extends State<Deposit> {
         return;
       }
 
-      await _dataService.depositToPool(
+      _dataService.depositToPool(
           _selectedPool!.poolId,
           DepositRequest(
             poolId: _selectedPool!.poolId,
             amount: double.parse(_amountController.text),
             phone: _user!.phone ?? '',
           ));
-      if (mounted) {
-        showSnackBar(context, 'Deposit Requested Successfully');
-        Navigator.pop(context);
-        Navigator.pushNamedAndRemoveUntil(
-            context, HomeView.routeName, (route) => false);
-      }
+      showSnackBar(context, 'Deposit Requested Successfully');
+      Navigator.pushNamed(
+          context, DepositProcessing.routeName, arguments: _selectedPool!.poolId);
     } catch (e) {
       if (mounted) {
         Navigator.pop(context);

@@ -10,6 +10,8 @@ dependencies:
   build_runner: ^2.4.9
   cupertino_icons: ^1.0.6
   date_time_picker: ^2.1.0
+  firebase_core: ^2.32.0
+  firebase_messaging: ^14.9.4
   flutter:
     sdk: flutter
   flutter_contacts: ^1.1.7+1
@@ -23,6 +25,7 @@ dependencies:
   json_serializable: ^6.8.0
   loading_animation_widget: ^1.2.1
   logger: ^2.2.0
+  multi_circular_slider: ^1.1.0
   percent_indicator: ^4.2.3
   smooth_page_indicator: ^1.1.0
   step_progress_indicator: ^1.0.2

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "230303828815",
+    "project_id": "grupchat-io",
+    "storage_bucket": "grupchat-io.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230303828815:android:db7c97d72d98154eb5933a",
+        "android_client_info": {
+          "package_name": "com.example.grupchat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIiDlmpBMiXMR9lA4iMJ-zYAMCWn8exSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

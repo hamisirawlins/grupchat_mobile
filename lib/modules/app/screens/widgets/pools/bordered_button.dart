@@ -3,12 +3,10 @@ import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 
 class BorderedButton extends StatelessWidget {
-  final String poolId;
   final VoidCallback onTap;
   final String text;
   const BorderedButton({
     super.key,
-    required this.poolId,
     required this.onTap,
     required this.text,
   });
