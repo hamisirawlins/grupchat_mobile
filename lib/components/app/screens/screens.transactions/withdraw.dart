@@ -184,13 +184,15 @@ class _WithdrawState extends State<Withdraw> {
                       },
                       decoration: InputDecoration(
                         labelText: 'Select Pool',
-                        labelStyle: TextStyle(color: Colors.black54),
+                        labelStyle: const TextStyle(color: Colors.black54),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
                           borderSide: BorderSide(color: kPrimaryColor),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
                           borderSide: BorderSide(color: kPrimaryColor),
                         ),
                       ),
@@ -277,7 +279,9 @@ class _WithdrawState extends State<Withdraw> {
                           child: Text(
                             'Randomly selected pool members will receive approval request, do you wish to proceed?',
                             style: TextStyle(
-                                fontWeight: FontWeight.w200, fontSize: 12),
+                                fontWeight: FontWeight.w200,
+                                fontSize: 14,
+                                color: Colors.black54),
                             softWrap: true,
                             overflow: TextOverflow.visible,
                           ),
@@ -328,6 +332,15 @@ class _WithdrawState extends State<Withdraw> {
                             Text(_amountController.text),
                           ],
                         ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Service Charge: ',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            Text(_calculateServiceChargeDisplay()),
+                          ],
+                        ),
                       ],
                     ),
                   ],
@@ -338,5 +351,14 @@ class _WithdrawState extends State<Withdraw> {
         ],
       ),
     );
+  }
+
+  String _calculateServiceChargeDisplay() {
+    if (_amountController.text.isEmpty) {
+      return '0';
+    }
+    final amount = double.tryParse(_amountController.text) ?? 0;
+    final serviceCharge = SysUtil.calculateServiceCharge(amount);
+    return serviceCharge.toStringAsFixed(2);
   }
 }

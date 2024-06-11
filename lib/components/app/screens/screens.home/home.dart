@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const QuickActions(),
             SizedBox(height: SizeConfig.screenHeight * 0.004),
             const SectionHeader(
-              text: "Active Pools",
+              text: "Latest Pools",
               showViewAll: false,
             ),
             SizedBox(height: SizeConfig.screenHeight * 0.01),

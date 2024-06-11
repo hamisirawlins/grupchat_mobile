@@ -65,7 +65,9 @@ class _SpecifiedTransactionsListState extends State<SpecifiedTransactionsList> {
                   color: kPrimaryColor, size: SizeConfig.screenHeight * 0.04),
             )
           : TransactionsList(
-              transactions: _transactions, isLoading: _isLoading),
+              height: SizeConfig.screenHeight * 0.96,
+              transactions: _transactions,
+              isLoading: _isLoading),
     );
   }
 }

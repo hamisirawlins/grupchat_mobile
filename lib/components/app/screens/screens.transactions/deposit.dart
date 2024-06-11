@@ -91,8 +91,8 @@ class _DepositState extends State<Deposit> {
             phone: _user!.phone ?? '',
           ));
       showSnackBar(context, 'Deposit Requested Successfully');
-      Navigator.pushNamed(
-          context, DepositProcessing.routeName, arguments: _selectedPool!.poolId);
+      Navigator.pushNamed(context, DepositProcessing.routeName,
+          arguments: _selectedPool!.poolId);
     } catch (e) {
       if (mounted) {
         Navigator.pop(context);
@@ -131,10 +131,17 @@ class _DepositState extends State<Deposit> {
                     _selectedPool = selectedPool;
                   });
                 },
-                decoration: const InputDecoration(
-                  labelText: 'Select Pool',
-                  border: OutlineInputBorder(),
-                ),
+                decoration: InputDecoration(
+                    labelText: 'Select Pool',
+                    labelStyle: const TextStyle(color: Colors.black54),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide(color: kPrimaryColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide(color: kPrimaryColor),
+                    )),
               ),
               const SizedBox(height: 16.0),
             ] else ...[
@@ -145,10 +152,17 @@ class _DepositState extends State<Deposit> {
             TextField(
               keyboardType: TextInputType.number,
               controller: _amountController,
-              decoration: const InputDecoration(
-                labelText: 'Enter Amount',
-                border: OutlineInputBorder(),
-              ),
+              decoration: InputDecoration(
+                  labelText: 'Enter Amount',
+                  labelStyle: const TextStyle(color: Colors.black54),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: kPrimaryColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    borderSide: BorderSide(color: kPrimaryColor),
+                  )),
             ),
             const SizedBox(height: 16.0),
             GestureDetector(

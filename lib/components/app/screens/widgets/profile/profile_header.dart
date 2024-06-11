@@ -14,7 +14,7 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: SizeConfig.screenHeight * 0.22,
+      height: SizeConfig.screenHeight * 0.28,
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -35,6 +35,10 @@ class ProfileHeader extends StatelessWidget {
           SizedBox(
             height: SizeConfig.screenHeight * 0.064,
           ),
+          CircleAvatar(
+            radius: SizeConfig.screenWidth * 0.092,
+            backgroundImage: NetworkImage(user!.profileImg),
+          ),
           Text(
             user?.name ?? '',
             style: const TextStyle(
@@ -54,25 +58,20 @@ class ProfileHeader extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: SizeConfig.screenHeight * 0.008,
+            height: SizeConfig.screenHeight * 0.0064,
           ),
-          Text(
-            UtilFormatter.reverseFormatPhoneNumber(user?.phone ?? '07XXXXXXXX'),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
+          Padding(
+            padding:
+                EdgeInsets.symmetric(vertical: SizeConfig.screenHeight * 0.008),
+            child: Text(
+              UtilFormatter.reverseFormatPhoneNumber(
+                  user?.phone ?? '07XXXXXXXX'),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
             ),
           ),
-          SizedBox(
-            height: SizeConfig.screenHeight * 0.008,
-          ),
-          const Text(
-            'Manage your account settings',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
-          )
         ],
       ),
     );

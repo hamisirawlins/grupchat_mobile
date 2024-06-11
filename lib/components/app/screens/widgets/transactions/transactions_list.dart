@@ -6,15 +6,18 @@ import 'package:grupchat/utils/formatters/formatter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class TransactionsList extends StatelessWidget {
-  const TransactionsList({
-    super.key,
-    required List<Transaction> transactions,
-    required bool isLoading,
-  })  : _transactions = transactions,
-        _isLoading = isLoading;
+  const TransactionsList(
+      {super.key,
+      required dynamic height,
+      required List<Transaction> transactions,
+      required bool isLoading})
+      : _transactions = transactions,
+        _isLoading = isLoading,
+        _height= height;
 
   final List<Transaction> _transactions;
   final bool _isLoading;
+  final dynamic _height;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class TransactionsList extends StatelessWidget {
                 color: kPrimaryColor, size: SizeConfig.screenHeight * 0.04),
           )
         : SizedBox(
-            height: SizeConfig.screenHeight * 0.32,
+            height: _height,
             child: ListView.builder(
               itemCount: _transactions.length,
               scrollDirection: Axis.vertical,

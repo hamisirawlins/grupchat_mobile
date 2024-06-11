@@ -96,7 +96,6 @@ class _CreatePoolState extends State<CreatePool> {
                 decoration: const InputDecoration(
                   labelText: "The Pool's Name",
                   labelStyle: TextStyle(color: Colors.black45, fontSize: 32),
-                  border: InputBorder.none,
                 ),
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.02),

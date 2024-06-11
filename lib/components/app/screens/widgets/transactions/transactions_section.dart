@@ -56,7 +56,9 @@ class TransactionSection extends StatelessWidget {
               vertical: SizeConfig.screenHeight * 0.01,
               horizontal: SizeConfig.screenWidth * 0.04),
           child: TransactionsList(
-              isLoading: _isLoading, transactions: _transactions),
+              height: SizeConfig.screenHeight * 0.32,
+              isLoading: _isLoading,
+              transactions: _transactions),
         )
       ],
     );
