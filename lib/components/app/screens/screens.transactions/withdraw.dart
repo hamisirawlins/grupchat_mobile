@@ -119,15 +119,18 @@ class _WithdrawState extends State<Withdraw> {
         return;
       }
 
-      if (double.parse(_amountController.text) >
-          double.parse(_calculateBalance(_selectedPool!))) {
+      final withdrawalAmount = double.parse(_calculateReceiveAmount());
+      final finalBalance = double.parse(_calculateBalance(_selectedPool!)) -
+          double.parse(_calculateServiceChargeDisplay());
+
+      if (double.parse(_amountController.text) > finalBalance) {
         showSnackBar(context, 'Insufficient Balance');
         return;
       }
 
       final request = WithdrawRequest(
         poolId: _selectedPool!.poolId,
-        amount: double.parse(_amountController.text),
+        amount: withdrawalAmount,
         phone: _selectedMember!.phone ?? '',
       );
 
@@ -329,7 +332,7 @@ class _WithdrawState extends State<Withdraw> {
                               'Amount: ',
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
-                            Text(_amountController.text),
+                            Text(_calculateReceiveAmount()),
                           ],
                         ),
                         Row(
@@ -360,5 +363,14 @@ class _WithdrawState extends State<Withdraw> {
     final amount = double.tryParse(_amountController.text) ?? 0;
     final serviceCharge = SysUtil.calculateServiceCharge(amount);
     return serviceCharge.toStringAsFixed(2);
+  }
+
+  String _calculateReceiveAmount() {
+    if (_amountController.text.isEmpty) {
+      return '0';
+    }
+    final amount = double.tryParse(_amountController.text) ?? 0;
+    final serviceCharge = SysUtil.calculateServiceCharge(amount);
+    return (amount - serviceCharge).toStringAsFixed(2);
   }
 }

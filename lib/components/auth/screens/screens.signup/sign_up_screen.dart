@@ -196,15 +196,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
 
         // Insert user data into the database
+
         await supabase.from('users').upsert({
           'id': res.user!.id,
           'name': nameController.text.trim(),
           'email': emailController.text.trim(),
           'phone': phoneNumber,
-          'profile_img': imageUrl ??
-              'https://ebplsmqddssernqhxabw.supabase.co/storage/v1/object/public/profiles/default-prof-img.png?t=2024-05-20T18%3A55%3A54.167Z',
+          'profile_img': imageUrl,
           'updated_at': DateTime.now().toIso8601String(),
-        }).select();
+        });
 
         if (mounted) {
           Navigator.pop(context);

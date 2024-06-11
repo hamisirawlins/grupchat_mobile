@@ -86,7 +86,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
               "Please check your mail to verify your account",
               textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
-                  color: Colors.black38, fontWeight: FontWeight.bold),
+                  color: Colors.black45, fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: SizeConfig.screenHeight * 0.024,
@@ -95,7 +95,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
               "Congratulations! A world of endless possibilities awaits you and your friends. Pool funds and power through those group plans! 🚀",
               textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
-                  color: Colors.black54,
+                  color: Colors.black87,
                   fontSize: 14,
                   fontWeight: FontWeight.w400),
             ),
@@ -105,13 +105,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
             AuthActionButton(
               onTap: () {
                 try {
-                  // check if user is verified
-                  final user = supabase.auth.currentSession?.user;
-                  if (user != null && user.emailConfirmedAt != null) {
-                    Navigator.pushNamed(context, SuccessScreen.routeName);
-                  } else {
-                    showSnackBar(context, "Email not verified yet");
-                  }
+                  Navigator.pushNamed(context, SuccessScreen.routeName);
                 } catch (e) {
                   showSnackBar(context, e.toString());
                 }

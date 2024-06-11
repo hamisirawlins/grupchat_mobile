@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grupchat/components/auth/screens/screens.login/login_screen.dart';
 import 'package:grupchat/components/auth/screens/widgets/auth_action_button.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 
@@ -39,14 +40,19 @@ class SuccessScreen extends StatelessWidget {
                 "Enjoy world of financial comfort among your friends. Let those plans transend the group chat! 🚀",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.montserrat(
-                    color: Colors.black54,
+                    color: Colors.black87,
                     fontSize: 14,
                     fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 height: SizeConfig.screenHeight * 0.04,
               ),
-              AuthActionButton(text: "Continue", onTap: () {}),
+              AuthActionButton(
+                  text: "Continue",
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, LoginScreen.routeName, (route) => false);
+                  }),
               SizedBox(
                 height: SizeConfig.screenHeight * 0.024,
               ),

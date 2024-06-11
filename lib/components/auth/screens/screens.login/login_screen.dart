@@ -11,6 +11,7 @@ import '../widgets/auth_input_field.dart';
 import '../../../../widgets/show_snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const String routeName = '/login';
   final Function()? toggleScreen;
   LoginScreen({super.key, this.toggleScreen});
 
@@ -59,6 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
           email: emailController.text, password: passwordController.text);
       if (mounted) {
         Navigator.pop(context);
+        Navigator.pushNamedAndRemoveUntil(
+            context, HomeView.routeName, (route) => false);
       }
     } on PostgrestException catch (e) {
       if (mounted) {
@@ -80,9 +83,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void googleSignIn() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        });
     try {
       final googleSignInAccount = await AuthService().signInWithGoogle();
       if (mounted) {
+        Navigator.pop(context);
         if (googleSignInAccount == null) {
           showSnackBar(context, "Google Sign In Failed! Please Retry Later");
           return;
@@ -94,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       if (mounted) {
+        Navigator.pop(context);
         showSnackBar(context, e.toString());
       }
     }

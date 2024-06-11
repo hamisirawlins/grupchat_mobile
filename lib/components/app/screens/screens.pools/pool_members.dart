@@ -284,21 +284,17 @@ class _PoolMembersState extends State<PoolMembers> {
                           )
                         else if (member.role == 'Admin')
                           GestureDetector(
-                              onTap: () {
-                                _removeMember(member.userId);
-                              },
                               child: Chip(
-                                backgroundColor: Colors.grey[100],
-                                side:
-                                    const BorderSide(color: Colors.transparent),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                label: Text(
-                                  'Admin',
-                                  style: TextStyle(color: kPrimaryColor),
-                                ),
-                              )),
+                            backgroundColor: Colors.grey[100],
+                            side: const BorderSide(color: Colors.transparent),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            label: Text(
+                              'Admin',
+                              style: TextStyle(color: kPrimaryColor),
+                            ),
+                          )),
                       ],
                     ));
               },

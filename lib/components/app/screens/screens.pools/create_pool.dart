@@ -3,6 +3,7 @@ import 'package:grupchat/models/pool_create.dart';
 import 'package:grupchat/components/app/screens/screens.pools/pool_details.dart';
 import 'package:grupchat/components/app/screens/widgets/pools/non_bordered_button.dart';
 import 'package:grupchat/services/data_service.dart';
+import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:grupchat/widgets/show_snackbar.dart';
@@ -93,9 +94,16 @@ class _CreatePoolState extends State<CreatePool> {
               SizedBox(height: SizeConfig.screenHeight * 0.008),
               TextField(
                 controller: _nameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: "The Pool's Name",
-                  labelStyle: TextStyle(color: Colors.black45, fontSize: 32),
+                  labelStyle: const TextStyle(color: Colors.black45),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: kPrimaryColor),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.02),
@@ -103,12 +111,21 @@ class _CreatePoolState extends State<CreatePool> {
                 'Description:',
                 style: TextStyle(fontSize: 20),
               ),
+              SizedBox(height: SizeConfig.screenHeight * 0.012),
               TextField(
+                minLines: 2,
+                maxLines: null,
                 controller: _descriptionController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: "A Short Description",
-                  labelStyle: TextStyle(color: Colors.black45, fontSize: 32),
-                  border: InputBorder.none,
+                  labelStyle: const TextStyle(color: Colors.black45),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: kPrimaryColor),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.02),
@@ -117,10 +134,16 @@ class _CreatePoolState extends State<CreatePool> {
               TextField(
                 keyboardType: TextInputType.number,
                 controller: _targetAmountController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: "Target Amount",
-                  labelStyle: TextStyle(color: Colors.black45, fontSize: 32),
-                  border: InputBorder.none,
+                  labelStyle: const TextStyle(color: Colors.black45),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: kPrimaryColor),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                 ),
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.02),
@@ -133,7 +156,6 @@ class _CreatePoolState extends State<CreatePool> {
                 firstDate: DateTime(2000),
                 lastDate: DateTime(2100),
                 decoration: const InputDecoration(
-                    labelText: 'End Date',
                     labelStyle: TextStyle(color: Colors.black45, fontSize: 24),
                     border: InputBorder.none,
                     icon: Icon(Icons.event)),

@@ -113,7 +113,6 @@ class DataService {
     }
   }
 
-  // get transactions
   Future<List<Transaction>> getTransactions(
       {String? poolId, String? search, int? page, int? pageSize}) async {
     final queryParams = {
