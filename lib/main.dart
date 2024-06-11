@@ -1,10 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grupchat/firebase_options.dart';
-import 'package:grupchat/modules/auth/screens/screens.onboarding/onboarding_screen.dart';
+import 'package:grupchat/components/auth/screens/screens.onboarding/onboarding_screen.dart';
 import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/routes/routes.dart';
 import 'package:grupchat/utils/constants/colors.dart';
@@ -75,7 +76,7 @@ class _MyAppState extends State<MyApp> {
     if (userId != null) {
       await supabase.from('users').upsert({
         'id': userId,
-        'fcm': token,
+        'fcm_token': token,
       });
     }
   }
@@ -115,7 +116,8 @@ class _MyAppState extends State<MyApp> {
                 return Center(child: Text('${snapshot.data!.event}'));
             }
           } else if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()));
+            return const Scaffold(
+                body: Center(child: Text("Error, Kindly Restart The App")));
           } else {
             return const OnboardingScreen();
           }

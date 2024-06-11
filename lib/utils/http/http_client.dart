@@ -49,7 +49,10 @@ class HttpUtility {
   static Future<Map<String, dynamic>> delete(String url, String token) async {
     final response = await http.delete(
       Uri.parse('$baseUrl/$url'),
-      headers: {'Authorization': 'Bearer $token'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token,
+      },
     );
     return _handleResponse(response);
   }

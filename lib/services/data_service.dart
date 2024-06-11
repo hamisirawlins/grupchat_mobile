@@ -105,6 +105,7 @@ class DataService {
 
   Future<void> deletePool(String poolId) async {
     final response = await HttpUtility.delete('pools/$poolId', token);
+    
     if (response.containsKey('message')) {
       return;
     } else {
