@@ -33,7 +33,7 @@ class _PoolsScreenState extends State<PoolsScreen> {
         _isLoading = true;
       });
 
-      final pools = await _dataService.getPools();
+      final pools = await _dataService.getPools(1, 40);
       setState(() {
         _pools = pools;
         _isLoading = false;

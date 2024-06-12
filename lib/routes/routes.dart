@@ -7,6 +7,7 @@ import 'package:grupchat/components/app/screens/screens.transactions/deposit.dar
 import 'package:grupchat/components/app/screens/screens.transactions/deposit_processing.dart';
 import 'package:grupchat/components/app/screens/screens.transactions/transactions.dart';
 import 'package:grupchat/components/app/screens/screens.transactions/withdraw.dart';
+import 'package:grupchat/components/app/screens/screens.utilities/notifications.dart';
 import 'package:grupchat/components/auth/screens/screens.login/login_screen.dart';
 import 'package:grupchat/components/auth/screens/screens.signup/add_phone_screen.dart';
 import 'package:grupchat/components/auth/screens/screens.signup/sign_up_screen.dart';
@@ -21,6 +22,7 @@ final Map<String, WidgetBuilder> appRoutes = {
   LoginAndRegisterView.routeName: (context) => const LoginAndRegisterView(),
   LoginScreen.routeName: (context) => LoginScreen(),
   SignUpScreen.routeName: (context) => const SignUpScreen(),
+  NotificationsScreen.routeName: (context) => const NotificationsScreen(),
   AddPhoneScreen.routeName: (context) {
     final args = ModalRoute.of(context)?.settings.arguments;
     if (args is GoogleSignInAccount) {

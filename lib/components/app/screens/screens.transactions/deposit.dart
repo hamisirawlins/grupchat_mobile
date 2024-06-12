@@ -43,7 +43,7 @@ class _DepositState extends State<Deposit> {
       setState(() {
         _isLoadingPools = true;
       });
-      _pools = await _dataService.getPools();
+      _pools = await _dataService.getPools(1, 40);
       if (widget.poolId != null) {
         for (var pool in _pools) {
           if (pool.poolId == widget.poolId) {

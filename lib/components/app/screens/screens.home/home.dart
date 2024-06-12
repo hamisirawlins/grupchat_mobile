@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<List<PoolListItem>> _fetchPools() async {
     final gatewayService = DataService();
-    return await gatewayService.getPools();
+    return await gatewayService.getPools(1, 40);
   }
 
   @override

@@ -11,8 +11,13 @@ import 'package:grupchat/utils/http/http_client.dart';
 class DataService {
   final token = supabase.auth.currentSession!.accessToken;
 
-  Future<List<PoolListItem>> getPools() async {
-    final response = await HttpUtility.get('pools', token);
+  Future<List<PoolListItem>> getPools(int page, int pageSize) async {
+    final queryParams = {
+      'page': page != null ? page.toString() : '1',
+      'pageSize': pageSize != null ? pageSize.toString() : '40'
+    };
+    final response =
+        await HttpUtility.get('pools', token, queryParams: queryParams);
     if (response.containsKey('data')) {
       final jsonData = response['data'] as List;
       return jsonData.map((json) => PoolListItem.fromJson(json)).toList();
@@ -105,7 +110,7 @@ class DataService {
 
   Future<void> deletePool(String poolId) async {
     final response = await HttpUtility.delete('pools/$poolId', token);
-    
+
     if (response.containsKey('message')) {
       return;
     } else {

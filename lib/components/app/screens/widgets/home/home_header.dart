@@ -47,6 +47,13 @@ class HomeHeader extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      // const Spacer(),
+                      // GestureDetector(
+                      //     onTap: () {
+                      //       Navigator.pushNamed(context, '/notifications');
+                      //     },
+                      //     child: const Icon(Icons.notifications,
+                      //         color: Colors.white))
                     ],
                   ),
                   Row(

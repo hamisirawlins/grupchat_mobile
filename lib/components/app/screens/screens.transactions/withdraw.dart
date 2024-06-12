@@ -39,7 +39,7 @@ class _WithdrawState extends State<Withdraw> {
       setState(() {
         _isLoadingPools = true;
       });
-      _pools = await _dataService.getPools();
+      _pools = await _dataService.getPools(1, 40);
       if (widget.poolId != null) {
         _selectedPool = _pools.firstWhere(
           (pool) => pool.poolId == widget.poolId,

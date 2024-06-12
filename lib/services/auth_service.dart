@@ -1,13 +1,15 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grupchat/main.dart';
+import 'package:grupchat/models/notification.dart';
 import 'package:grupchat/models/user.dart';
 import 'package:grupchat/utils/http/http_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
+  final token = supabase.auth.currentSession!.accessToken;
+
   Future<UserModel> getUserDetails(String userId) async {
-    final token = supabase.auth.currentSession!.accessToken;
     final response = await HttpUtility.get('admin/users/$userId', token);
     if (response.containsKey('id')) {
       final jsonData = response;
@@ -45,6 +47,18 @@ class AuthService {
       return googleUser;
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<List<NotificationItem>> getUserNotifications(String userId) async {
+    final response =
+        await HttpUtility.get('admin/users/$userId/notifications', token);
+    if (response.containsKey('data')) {
+      final jsonData = response['data'];
+      return List<NotificationItem>.from(
+          jsonData.map((x) => NotificationItem.fromJson(x)));
+    } else {
+      throw Exception('Failed to load notifications: ${response['error']}');
     }
   }
 }

@@ -85,18 +85,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                 ),
                 ProfileSettingsTile(
-                  icon: Icons.vibration,
-                  title: 'Notifications',
-                  subtitle: 'Change Notification Preferences',
-                  onTap: () {},
-                ),
-                ProfileSettingsTile(
-                  icon: Icons.phone_android_rounded,
-                  title: 'Permissions',
-                  subtitle: 'View allowed device permissions',
-                  onTap: () {},
-                ),
-                ProfileSettingsTile(
                   icon: Icons.person_3,
                   title: 'Account Preferences',
                   subtitle: 'Change account preferences',
