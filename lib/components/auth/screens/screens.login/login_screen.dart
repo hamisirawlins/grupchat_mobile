@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grupchat/utils/constants/colors.dart';
-import 'package:grupchat/widgets/navbar.dart';
 import 'package:grupchat/main.dart';
+import 'package:grupchat/widgets/navbar.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../../../services/auth_service.dart';
 import '../../../../utils/constants/sys_util.dart';
 import '../widgets/auth_action_button.dart';
 import '../widgets/auth_input_field.dart';
@@ -60,8 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
           email: emailController.text, password: passwordController.text);
       if (mounted) {
         Navigator.pop(context);
-        Navigator.pushNamedAndRemoveUntil(
-            context, HomeView.routeName, (route) => false);
       }
     } on PostgrestException catch (e) {
       if (mounted) {
@@ -83,32 +82,36 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void googleSignIn() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          );
-        });
     try {
-      final googleSignInAccount = await AuthService().signInWithGoogle();
+      //google sign in
+      final googleSignIn = GoogleSignIn(
+        clientId: dotenv.env['IOS_CLIENT'] ?? '',
+        serverClientId: dotenv.env['WEB_CLIENT'] ?? '',
+      );
+      final googleUser = await googleSignIn.signIn();
+      final googleAuth = await googleUser!.authentication;
+      final accessToken = googleAuth.accessToken;
+      final idToken = googleAuth.idToken;
+      if (accessToken == null) {
+        throw 'No Access Token found.';
+      }
+      if (idToken == null) {
+        throw 'No ID Token found.';
+      }
+      await supabase.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+
       if (mounted) {
-        Navigator.pop(context);
-        if (googleSignInAccount == null) {
-          showSnackBar(context, "Google Sign In Failed! Please Retry Later");
-          return;
-        } else {
-          Navigator.pushNamedAndRemoveUntil(
-              context, HomeView.routeName, (route) => false);
-          showSnackBar(context, "Welcome!");
-        }
+        showSnackBar(context, "Welcome!");
+        Navigator.pushNamedAndRemoveUntil(
+            context, HomeView.routeName, (route) => false);
       }
     } catch (e) {
       if (mounted) {
-        Navigator.pop(context);
-        showSnackBar(context, e.toString());
+        showSnackBar(context, "Google Sign In Failed");
       }
     }
   }

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grupchat/main.dart';
 import 'package:grupchat/components/auth/screens/screens.onboarding/verify_email.dart';
@@ -8,7 +9,6 @@ import 'package:grupchat/components/auth/screens/screens.signup/add_phone_screen
 import 'package:grupchat/components/auth/screens/widgets/auth_action_button.dart';
 import 'package:grupchat/components/auth/screens/widgets/auth_input_field.dart';
 import 'package:grupchat/components/auth/screens/widgets/terms_and_conditions_check.dart';
-import 'package:grupchat/services/auth_service.dart';
 import 'package:grupchat/utils/constants/colors.dart';
 import 'package:grupchat/utils/constants/sys_util.dart';
 import 'package:grupchat/utils/formatters/formatter.dart';
@@ -84,13 +84,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
         });
 
     try {
-      GoogleSignInAccount? response = await AuthService().signInWithGoogle();
+      final googleSignIn = GoogleSignIn(
+        clientId: dotenv.env['IOS_CLIENT'] ?? '',
+        serverClientId: dotenv.env['WEB_CLIENT'] ?? '',
+      );
+      final googleUser = await googleSignIn.signIn();
+      final googleAuth = await googleUser!.authentication;
+      final accessToken = googleAuth.accessToken;
+      final idToken = googleAuth.idToken;
+      if (accessToken == null) {
+        throw 'No Access Token found.';
+      }
+      if (idToken == null) {
+        throw 'No ID Token found.';
+      }
 
       final userData = {
         'id': supabase.auth.currentUser!.id,
-        'email': response!.email,
-        'name': response.displayName,
-        'profile_img': response.photoUrl,
+        'email': googleUser.email,
+        'name': googleUser.displayName,
+        'profile_img': googleUser.photoUrl,
       };
 
       await supabase
@@ -101,12 +114,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (mounted) {
         Navigator.pop(context);
         Navigator.pushNamed(context, AddPhoneScreen.routeName,
-            arguments: response);
+            arguments: googleUser);
         showSnackBar(
             context, "Success! Please Add Your Phone Number To Finish Sign Up");
       }
     } catch (e) {
-      showSnackBar(context, e.toString());
+      if (mounted) {
+        Navigator.pop(context);
+        showSnackBar(context, "Google Sign Up Failed, Please Retry Later");
+      }
     }
   }
 

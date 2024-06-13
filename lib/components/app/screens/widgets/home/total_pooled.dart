@@ -26,9 +26,11 @@ class _TotalPooledState extends State<TotalPooled> {
     final authService = AuthService();
     final user =
         await authService.getUserDetails(supabase.auth.currentUser!.id);
-    setState(() {
-      _user = user;
-    });
+    if (mounted) {
+      setState(() {
+        _user = user;
+      });
+    }
   }
 
   String getFirstName(String? fullName) {

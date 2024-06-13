@@ -102,6 +102,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   subtitle: 'Sign out of your account',
                   onTap: () async {
                     await supabase.auth.signOut();
+                    if (mounted) {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/',
+                        (route) => false,
+                      );
+                    }
                   },
                 )
               ],

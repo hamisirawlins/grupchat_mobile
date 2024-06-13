@@ -116,7 +116,8 @@ class _MyAppState extends State<MyApp> {
             }
           } else if (snapshot.hasError) {
             return const Scaffold(
-                body: Center(child: Text("Error, Kindly Restart The App")));
+                body: Center(
+                    child: Text("An Error Occurred, Kindly Restart The App")));
           } else {
             return const OnboardingScreen();
           }

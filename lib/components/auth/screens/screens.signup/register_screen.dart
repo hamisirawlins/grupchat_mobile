@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:grupchat/services/auth_service.dart';
 import 'package:grupchat/components/auth/screens/screens.onboarding/verify_email.dart';
 import 'package:grupchat/components/auth/screens/widgets/terms_and_conditions_check.dart';
 import 'package:grupchat/main.dart';
@@ -104,9 +104,28 @@ class _LoginScreenState extends State<RegisterScreen> {
   }
 
   void googleSignIn() async {
-    GoogleSignInAccount? response = await AuthService().signInWithGoogle();
+    //google sign in
+    final googleSignIn = GoogleSignIn(
+      clientId: dotenv.env['IOS_CLIENT'] ?? '',
+      serverClientId: dotenv.env['WEB_CLIENT'] ?? '',
+    );
+    final googleUser = await googleSignIn.signIn();
+    final googleAuth = await googleUser!.authentication;
+    final accessToken = googleAuth.accessToken;
+    final idToken = googleAuth.idToken;
+    if (accessToken == null) {
+      throw 'No Access Token found.';
+    }
+    if (idToken == null) {
+      throw 'No ID Token found.';
+    }
+    await supabase.auth.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: idToken,
+      accessToken: accessToken,
+    );
     if (mounted) {
-      if (response == null) {
+      if (googleUser == null) {
         showSnackBar(context, 'Google Sign In Failed! Please Retry Later');
       } else {
         showSnackBar(context, "Success!");
