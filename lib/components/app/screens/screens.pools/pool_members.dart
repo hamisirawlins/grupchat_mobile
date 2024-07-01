@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:grupchat/main.dart';
 import 'package:grupchat/models/pool_members.dart';
 import 'package:grupchat/services/data_service.dart';
@@ -20,41 +19,12 @@ class _PoolMembersState extends State<PoolMembers> {
   final DataService _dataService = DataService();
   bool _isLoading = false;
   List<PoolMember> _members = [];
-  List<Contact> _contacts = [];
-  Contact? _selectedContact;
   final addMemberController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _loadPoolMembers();
-  }
-
-  Future<void> _requestContactsPermission() async {
-    bool permissionGranted = await FlutterContacts.requestPermission();
-    if (permissionGranted) {
-      await _loadContacts();
-    } else {
-      if (mounted)
-        showSnackBar(
-            context, 'Contacts permission is required to add a member.');
-    }
-  }
-
-  Future<void> _loadContacts() async {
-    try {
-      final dynamic contacts =
-          await FlutterContacts.getContacts(withProperties: true);
-      if (contacts is List<Contact>) {
-        setState(() {
-          _contacts = contacts;
-        });
-      } else {
-        throw Exception('Failed to retrieve contacts');
-      }
-    } catch (e) {
-      if (mounted) showSnackBar(context, 'Failed to load contacts: $e');
-    }
   }
 
   Future<void> _loadPoolMembers() async {
@@ -97,7 +67,7 @@ class _PoolMembersState extends State<PoolMembers> {
         });
     try {
       await _dataService.addMember(
-          widget.poolId, _selectedContact!.phones[0].number);
+          widget.poolId, addMemberController.text.trim());
       final newMembers = await _dataService.getPoolMembers(widget.poolId);
       if (mounted) {
         addMemberController.clear();
@@ -131,53 +101,36 @@ class _PoolMembersState extends State<PoolMembers> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: kPrimaryColor,
         onPressed: () async {
-          await _requestContactsPermission();
           showDialog(
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  backgroundColor: kPrimaryColor,
+                  backgroundColor: Colors.white,
                   title: const Text(
                     'Add A New Member',
-                    style: TextStyle(color: Colors.white),
                   ),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: DropdownButtonFormField<Contact>(
-                          value: _selectedContact,
-                          items: _contacts
-                              .map((contact) => DropdownMenuItem(
-                                    value: contact,
-                                    child: Text(contact.displayName),
-                                  ))
-                              .toList(),
-                          onChanged: (selectedContact) async {
-                            setState(() {
-                              _selectedContact = selectedContact;
-                            });
-                          },
-                          decoration: const InputDecoration(
-                            labelText: 'Select Contact',
-                            labelStyle: TextStyle(color: Colors.white),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
+                        child: TextField(
+                          cursorColor: kPrimaryColor,
+                          controller: addMemberController,
+                          decoration: InputDecoration(
+                            labelText: "Email/Phone No.",
                             focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                              borderSide: BorderSide(color: Colors.white),
+                              borderSide: BorderSide(color: kPrimaryColor),
+                              borderRadius: BorderRadius.circular(15),
                             ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      )
                     ],
                   ),
                   actions: [
@@ -190,16 +143,16 @@ class _PoolMembersState extends State<PoolMembers> {
                           },
                           child: const Text(
                             'Cancel',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                           ),
                         ),
                         TextButton(
                           onPressed: () async {
                             await addMember();
-                            Navigator.pop(context);
+                            if (mounted) Navigator.pop(context);
                           },
                           child: const Text('Add',
-                              style: TextStyle(color: Colors.white)),
+                              style: TextStyle(color: Colors.black)),
                         ),
                       ],
                     ),

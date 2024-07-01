@@ -25,11 +25,11 @@ class DepositProcessing extends StatelessWidget {
                 progressBarType: MultiCircularSliderType.circular,
                 values: const [0.2, 0.1, 0.3, 0.25, 0.15],
                 colors: [
-                  const Color(0xFF6254fa).withOpacity(0.2),
-                  const Color(0xFF6254fa).withOpacity(0.4),
-                  const Color(0xFF6254fa).withOpacity(0.6),
-                  const Color(0xFF6254fa).withOpacity(0.8),
-                  const Color(0xFF6254fa)
+                  const Color(0xFF41958f).withOpacity(0.2),
+                  const Color(0xFF41958f).withOpacity(0.4),
+                  const Color(0xFF41958f).withOpacity(0.6),
+                  const Color(0xFF41958f).withOpacity(0.8),
+                  const Color(0xFF41958f)
                 ],
                 showTotalPercentage: false,
                 trackWidth: 16.0),
